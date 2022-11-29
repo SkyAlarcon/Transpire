@@ -4,6 +4,10 @@ const app = require("../app");
 let athleteID1;
 let athleteID2;
 let athleteID3;
+
+let teamID1;
+let teamID2;
+
 let token = "bearer ";
 
 console.log ("----------------API TEST----------------")
@@ -196,6 +200,43 @@ describe("Third athlete - Create", () => {
                   followers: []
                 }
               ])
+        })
+        .end((err,res) => {
+            if (err) return done(err);
+            return done();
+        });
+    });
+});
+
+describe("First team - Create and Delete", () => {
+    test("CREATE Team 1 /teams/new", (done) => {
+        request(app)
+        .post(`/transpire/teams/new`)
+        .set("Authorization", token)
+        .expect("Content-Type", /json/)
+        .send({
+            name: "Team Test",
+            sports: ["Cycling"],
+            description: "First team to be created",
+            socials: ["insta", "tiktok"],
+            adm: athleteID1,
+            transFriendly_Exclusive: "exclusive"
+        })
+        .expect(201)
+        .end((err,res) => {
+            if(err) return done(err);
+            teamID1 = res.body.savedTeam.id
+            return done();
+        });
+    });
+    test("DELETE Team 1 /teams/delete/:id", (done) => {
+        request(app)
+        .delete(`/transpire/teams/delete/${teamID1}`)
+        .set("Authorization", token)
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.msg).toBe("Team Team Test deleted")
         })
         .end((err,res) => {
             if (err) return done(err);

@@ -16,12 +16,12 @@ const TeamSchema = mongoose.Schema(
             maxLength: 5,
             required: true
         },
-        transFriendly_Exclusive: {
+        friendlyOrExclusive: {
             type: String,
             required: true,
             validate: {
                 validator: function(str){
-                     if (str == "friendly" || str == "exclusive") return true;
+                     if (str.toLowerCase() == "friendly" || str.toLowerCase() == "exclusive") return true;
                      return false;
                 }
             }

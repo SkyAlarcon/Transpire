@@ -3,6 +3,8 @@ const teamModel = require("../models/teamModel");
 
 const script = require("./scripts");
 
+const SECRET = process.env.SECRET
+
 const createTeam = async (req,res) => {
     try {
         const authHeader = req.get("Authorization");
@@ -13,7 +15,8 @@ const createTeam = async (req,res) => {
             sports,
             description,
             socials,
-            adm
+            adm,
+            friendlyOrExclusive
         } = req.body;
         const findAthlete = await atlheteModel.findOne({adm: adm}, "_id")
         if (!findAthlete) return res.status(404).send("No Athlete found to be the first administrator of the team");
@@ -22,10 +25,12 @@ const createTeam = async (req,res) => {
             sports,
             description,
             socials,
-            adm: findAthlete.id
+            adm: findAthlete.id,
+            athletes: [findAthlete.id],
+            friendlyOrExclusive
         });
-        const savedTeam = newTeam.save();
-        res.status(201).send("New team created:", savedTeam);
+        const savedTeam = await newTeam.save();
+        res.status(201).json({ msg: "New team created:", savedTeam });
     } catch(error) {
         res.status(500).json(error.message);
     };
@@ -183,7 +188,16 @@ const deleteTeam = async (req,res) => {
         const authHeader = req.get("Authorization");
         const BlockAccess = script.TokenVerifier(authHeader, SECRET);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
-
+        const { id } = req.params;
+        const findTeam = await teamModel.findByIdAndDelete(id);
+        if (!findTeam) return res.status(404).send("Team not found");
+        findTeam.athletes.forEach(async athleteID => {
+            const athleteTeams = await atlheteModel.findById(athleteID, ["teams", "-id"]);
+            const teamIdIndex = athleteTeams.indexOf(id);
+            athleteTeams.splice(teamIdIndex, 1);
+            await atlheteModel.findByIdAndUpdate({teams: athleteTeams});
+        });
+        res.status(200).json({ msg: `Team ${findTeam.name} deleted`})
     } catch(error) {
         res.status(500).json(error.message);
     };
