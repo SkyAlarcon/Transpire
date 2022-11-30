@@ -163,23 +163,6 @@ describe("Third athlete - Create", () => {
         .expect((res) => {
             expect(res.body.findAthletes).toEqual([
                 {
-                  _id: "638568dd05721e885e120cf1",
-                  username: 'Sky7',
-                  pronouns: [ 'she', 'her' ],
-                  email: 'skyler7.alarcon@transpire.com',       
-                  sports: [
-                    'Swordplay',  'Cycling',
-                    'Parkour',    'Swimming',
-                    'Gym',        'Crossfit',
-                    'Soccer',     'Volley',
-                    'Basketball', 'Softball',
-                    'Baseball'
-                  ],
-                  teams: [],
-                  following: [],
-                  followers: []
-                },
-                {
                   _id: athleteID1,
                   username: 'Sky',
                   pronouns: [ 'she', 'her' ],
@@ -215,28 +198,52 @@ describe("First team - Create and Delete", () => {
         .set("Authorization", token)
         .expect("Content-Type", /json/)
         .send({
-            name: "Team Test",
+            name: "Team Testing",
             sports: ["Cycling"],
             description: "First team to be created",
             socials: ["insta", "tiktok"],
             adm: athleteID1,
-            transFriendly_Exclusive: "exclusive"
+            friendlyOrExclusive: "exclusive"
         })
         .expect(201)
         .end((err,res) => {
             if(err) return done(err);
-            teamID1 = res.body.savedTeam.id
+            teamID1 = res.body.savedTeam._id
+            console.log(teamID1)
             return done();
         });
     });
+    test("GET all /teams/all", (done) => {
+        request(app)
+        .get("/transpire/teams/all")
+        .set("Authorization", token)
+        .expect(200)
+        .expect((res) => {
+            expect(res.body).toEqual([
+                {
+                    "_id": teamID1,
+                    "name": "Team Testing",
+                    "sports": [
+                        "Cycling"
+                    ],
+                    "description": "First team to be created"
+                }
+            ])
+        })
+        .end((err,res) => {
+            if (err) return done(err);
+            return done();
+        })
+    })
     test("DELETE Team 1 /teams/delete/:id", (done) => {
         request(app)
         .delete(`/transpire/teams/delete/${teamID1}`)
         .set("Authorization", token)
+        .send({"adm": athleteID1})
         .expect("Content-Type", /json/)
         .expect(200)
         .expect((res) => {
-            expect(res.body.msg).toBe("Team Team Test deleted")
+            expect(res.body.msg).toBe("Team Team Testing deleted")
         })
         .end((err,res) => {
             if (err) return done(err);

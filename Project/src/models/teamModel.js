@@ -37,7 +37,8 @@ const TeamSchema = mongoose.Schema(
             type: [String]
         },
         athletes: {
-            type: [mongoose.Schema.Types.ObjectId]
+            type: [mongoose.Schema.Types.ObjectId],
+            required: true
         }
     },
     { timestamp: true }

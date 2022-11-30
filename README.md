@@ -15,7 +15,7 @@ mudança no estilo de vida e se tornarem mais ativas fisicamente!
 
 
 ## O que é a Transpire :transgender_symbol:
-Transpire :transgender_symbol:é uma rede social com o objetivo de levar pessoas trans
+Transpire :transgender_symbol: é uma rede social com o objetivo de levar pessoas trans
 a ingressar em atividades físicas.
 Simples assim!
 
@@ -63,17 +63,17 @@ dar um volta de bicicleta no parque.
 A Transpire :transgender_symbol: conta com:
 
 ### :1st_place_medal: Para atletas :1st_place_medal:
-:pushpin: Criação de perfil para atletas novos
-:pushpin: Login no perfil de atleta
-:pushpin: Listar atletas da Transpire :transgender_symbol:
-:pushpin: Atualização do dados de aatletas
-:pushpin: Busca de atletas por nome ou esporte de interesse
-:pushpin: Busca de atletas por ID
-:pushpin: Apagar perfil de atleta
+* :pushpin: Criação de perfil para atletas novos
+* :pushpin: Login no perfil de atleta
+* :pushpin: Listar atletas da Transpire :transgender_symbol:
+* :pushpin: Atualização do dados de aatletas
+* :pushpin: Busca de atletas por nome ou esporte de interesse
+* :pushpin: Busca de atletas por ID
+* :pushpin: Apagar perfil de atleta
 
 A ser implementado:
-[ ] Seguir outre atleta
-[ ] Enviar mensagem para outre atleta
+- [ ] Seguir outre atleta
+- [ ] Enviar mensagem para outre atleta
 
 
 ### :medal_sports: Para times :medal_sports:

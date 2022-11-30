@@ -45,7 +45,7 @@ const allTeams = async (req,res) => {
         const BlockAccess = script.TokenVerifier(authHeader, SECRET);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const allTeamsList = await teamModel.find({}, ["name", "sports", "description"]);
-        res.status(200).send(allTeamsList);
+        res.status(200).json(allTeamsList);
     } catch(error) {
         res.status(500).json(error.message);
     };
@@ -66,7 +66,7 @@ const updateTeam = async (req,res) => {
     } catch(error) {
         res.status(500).json(error.message);
     };
-};
+}; //TO BE TESTED
 
 const addRemoveAdministrator = async (req,res) => {
     try {
@@ -96,7 +96,7 @@ const addRemoveAdministrator = async (req,res) => {
     } catch(error) {
         res.status(500).json(error.message);
     };
-};
+}; //TO BE TESTED
 
 const findTeamById = async (req,res) => {
     try {
@@ -110,7 +110,7 @@ const findTeamById = async (req,res) => {
     } catch(error) {
         res.status(500).json(error.message);
     };
-};
+}; //TO BE TESTED
 
 const findTeamByQuery = async (req,res) => {
     try {
@@ -141,7 +141,7 @@ const findTeamByQuery = async (req,res) => {
     } catch(error) {
         res.status(500).json(error.message);
     };
-};
+}; //TO BE TESTED
 
 const removeAthleteFromTeam = async (req,res) => {
     try {
@@ -160,7 +160,7 @@ const removeAthleteFromTeam = async (req,res) => {
     } catch(error) {
         res.status(500).json(error.message);
     };
-};
+}; //TO BE TESTED
 
 const enter_LeaveTeam = async (req,res) => {
     try {
@@ -184,7 +184,7 @@ const enter_LeaveTeam = async (req,res) => {
     } catch(error) {
         res.status(500).json(error.message);
     };
-};
+}; //TO BE TESTED
 
 const deleteTeam = async (req,res) => {
     try {
@@ -192,18 +192,21 @@ const deleteTeam = async (req,res) => {
         const BlockAccess = script.TokenVerifier(authHeader, SECRET);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { id } = req.params;
-        const findTeam = await teamModel.findById(id, ["adm","athletes"]);
+        console.log(id)
+        console.log("b4 b4 find team")
+        const findTeam = await teamModel.findById(id, ["adm","athletes", "name"]);
+        console.log("b4 findteam")
         if (!findTeam) return res.status(404).send("Team not found");
         const { adm } = req.body;
         if (!findTeam.adm.includes(adm)) return res.status(403).send("You need to be an administrator do delete the group");
+        console.log("b4 4each")
         findTeam.athletes.forEach(async athleteID => {
-            console.log(athleteID)
-            const athlete = await atlheteModel.findById(athleteID, ["teams"]);
+            const athlete = await atlheteModel.findOne({id: athleteID}, ["teams"]);
             const teamIdIndex = athlete.teams.indexOf(id);
-            console.log(athlete.teams[teamIdIndex])
             athlete.teams.splice(teamIdIndex, 1);
-            await atlheteModel.findByIdAndUpdate({teams: athlete.teams});
+            await atlheteModel.findByIdAndUpdate(athlete.id, {teams: athlete.teams});
         });
+        console.log("b4 delete")
         await teamModel.findByIdAndDelete(id)
         res.status(200).json({ msg: `Team ${findTeam.name} deleted` })
     } catch(error) {
