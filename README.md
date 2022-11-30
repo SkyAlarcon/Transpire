@@ -22,7 +22,7 @@ Simples assim!
 
 ## Por que foi criada a Transpire :transgender_symbol:?
 Diversas pessoas trans sentem vontade de praticar esportes e,
-devido diversas situações e comentários hostis durante a vida
+devido diversas situações e comentários hostis durante a vida,
 sentimos medo de tentar se integrar em grupos que não sejam
 apenas para pessoas trans.
 
