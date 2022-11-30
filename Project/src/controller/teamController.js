@@ -18,18 +18,21 @@ const createTeam = async (req,res) => {
             adm,
             friendlyOrExclusive
         } = req.body;
-        const findAthlete = await atlheteModel.findOne({adm: adm}, "_id")
+        const findAthlete = await atlheteModel.findById(adm, ["teams"])
         if (!findAthlete) return res.status(404).send("No Athlete found to be the first administrator of the team");
+        if (findAthlete.teams.length > 9) return res.status(403).json({ msg: "Cannot enter or create another team" });
         const newTeam = new teamModel({
             name,
             sports,
             description,
             socials,
-            adm: findAthlete.id,
-            athletes: [findAthlete.id],
+            adm: adm,
+            athletes: [adm],
             friendlyOrExclusive
         });
         const savedTeam = await newTeam.save();
+        findAthlete.teams.push(savedTeam.id);
+        await atlheteModel.findByIdAndUpdate(adm, {teams: findAthlete.teams});
         res.status(201).json({ msg: "New team created:", savedTeam });
     } catch(error) {
         res.status(500).json(error.message);
@@ -189,15 +192,20 @@ const deleteTeam = async (req,res) => {
         const BlockAccess = script.TokenVerifier(authHeader, SECRET);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { id } = req.params;
-        const findTeam = await teamModel.findByIdAndDelete(id);
+        const findTeam = await teamModel.findById(id, ["adm","athletes"]);
         if (!findTeam) return res.status(404).send("Team not found");
+        const { adm } = req.body;
+        if (!findTeam.adm.includes(adm)) return res.status(403).send("You need to be an administrator do delete the group");
         findTeam.athletes.forEach(async athleteID => {
-            const athleteTeams = await atlheteModel.findById(athleteID, ["teams", "-id"]);
-            const teamIdIndex = athleteTeams.indexOf(id);
-            athleteTeams.splice(teamIdIndex, 1);
-            await atlheteModel.findByIdAndUpdate({teams: athleteTeams});
+            console.log(athleteID)
+            const athlete = await atlheteModel.findById(athleteID, ["teams"]);
+            const teamIdIndex = athlete.teams.indexOf(id);
+            console.log(athlete.teams[teamIdIndex])
+            athlete.teams.splice(teamIdIndex, 1);
+            await atlheteModel.findByIdAndUpdate({teams: athlete.teams});
         });
-        res.status(200).json({ msg: `Team ${findTeam.name} deleted`})
+        await teamModel.findByIdAndDelete(id)
+        res.status(200).json({ msg: `Team ${findTeam.name} deleted` })
     } catch(error) {
         res.status(500).json(error.message);
     };
