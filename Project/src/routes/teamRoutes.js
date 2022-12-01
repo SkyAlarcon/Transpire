@@ -5,7 +5,7 @@ const route = express.Router();
 
 route.post("/new", controller.createTeam);
 route.get("/all", controller.allTeams);
-route.get("/:id", controller.findTeamById);
+route.get("/find/:id", controller.findTeamById);
 route.get("/", controller.findTeamByQuery);
 
 route.patch("/update/:id", controller.updateTeam);

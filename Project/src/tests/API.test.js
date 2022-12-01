@@ -191,7 +191,7 @@ describe("Third athlete - Create", () => {
     });
 });
 
-describe("First team - Create and Delete", () => {
+describe("First team - Create, Find, Enter/Leave team, Update", () => {
     test("CREATE Team 1 /teams/new", (done) => {
         request(app)
         .post(`/transpire/teams/new`)
@@ -209,7 +209,6 @@ describe("First team - Create and Delete", () => {
         .end((err,res) => {
             if(err) return done(err);
             teamID1 = res.body.savedTeam._id
-            console.log(teamID1)
             return done();
         });
     });
@@ -228,13 +227,56 @@ describe("First team - Create and Delete", () => {
                     ],
                     "description": "First team to be created"
                 }
-            ])
+            ]);
         })
         .end((err,res) => {
             if (err) return done(err);
             return done();
+        });
+    });
+    test("PATCH Update info /teams/update/:id", (done) => {
+        request(app)
+        .patch(`/transpire/teams/update/${teamID1}`)
+        .set("Authorization", token)
+        .send({
+            name: "Team updated",
+            sports: ["Cycling", "Climbing"],
+            description: "Team updated info",
+            adm: athleteID1
         })
-    })
+        .expect(200)
+        .expect((res) => {
+            expect(res.body).toBe("Team updated successfully");
+        })
+        .end((err,res) => {
+            if(err) return done(err);
+            return done();
+        });
+    });
+    test("GET Find ID Team 1 /teams/find/:id", (done) => {
+        request(app)
+        .get(`/transpire/teams/find/${teamID1}`)
+        .set("Authorization", token)
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.findTeam).toEqual({
+                "_id": teamID1,
+                "name": "Team updated",
+                "sports": ["Cycling", "Climbing"],
+                "description": "Team updated info",
+                "athletes": [athleteID1],
+                "friendlyOrExclusive": "exclusive"
+            });
+        })
+        .end ((err,res) => {
+            if (err) return done(err);
+            return done();
+        });
+    });
+});
+
+describe("DELETE Teams and Athletes", () => {
     test("DELETE Team 1 /teams/delete/:id", (done) => {
         request(app)
         .delete(`/transpire/teams/delete/${teamID1}`)
@@ -243,16 +285,13 @@ describe("First team - Create and Delete", () => {
         .expect("Content-Type", /json/)
         .expect(200)
         .expect((res) => {
-            expect(res.body.msg).toBe("Team Team Testing deleted")
+            expect(res.body.msg).toBe("Team Team updated deleted")
         })
         .end((err,res) => {
             if (err) return done(err);
             return done();
         });
     });
-});
-
-describe("DELETE Athletes", () => {
     test("Delete ATLETA 1 /athletes/delete/:id", (done) => {
         request(app)
         .delete(`/transpire/athletes/delete/${athleteID1}`)

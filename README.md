@@ -65,8 +65,8 @@ A Transpire :transgender_symbol: conta com:
 ### :1st_place_medal: Para atletas :1st_place_medal:
 * :pushpin: Criação de perfil para atletas novos
 * :pushpin: Login no perfil de atleta
+* :pushpin: Atualização do dados de atletas
 * :pushpin: Listar atletas da Transpire :transgender_symbol:
-* :pushpin: Atualização do dados de aatletas
 * :pushpin: Busca de atletas por nome ou esporte de interesse
 * :pushpin: Busca de atletas por ID
 * :pushpin: Apagar perfil de atleta
@@ -77,6 +77,12 @@ A ser implementado:
 
 
 ### :medal_sports: Para times :medal_sports:
-
-
-
+* :pushpin: Criação de times
+* :pushpin: Atualização dos dados do time
+* :pushpin: Listar os times cadastrados na Transpire :transgender_symbol:
+* :pushpin: Busca de times por nome ou esporte praticado
+* :pushpin: Busca de times pro ID
+* :pushpin: Entrar ou sair de times
+* :pushpin: Adicionar admins no time
+* :pushpin: Remover atletas do time
+* :pushpin: Apagar times
