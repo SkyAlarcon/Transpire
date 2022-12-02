@@ -113,8 +113,17 @@
 - Start of development of stress tests
 
 
-## Version 0.3.8 - Stres testing
-- Created stres tests
+## Version 0.3.8 - Stress testing
+- Created stress tests
 
 - athleteController
   - Refactored code
+
+
+## Version 0.4.1 - Code cleaning and logic optimization
+- Created file:
+  - Methods.md
+
+- Methods.md shows what each method does (in terms of logic)(will be re-written for better understanding, for now, it's for personal use and may be hard to understand)
+
+- Marked all methods that may be refactored and cleaned for better logic and optimization

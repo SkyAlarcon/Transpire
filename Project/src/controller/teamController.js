@@ -37,7 +37,7 @@ const createTeam = async (req,res) => {
     } catch(error) {
         res.status(500).json(error.message);
     };
-};
+}; //TO BE REFACTORED
 
 const allTeams = async (req,res) => {
     try {
@@ -98,7 +98,7 @@ const addRemoveAdministrator = async (req,res) => {
         console.log(error.message)
         res.status(500).json(error.message);
     };
-};
+}; //TO BE REFACTORED
 
 const findTeamById = async (req,res) => {
     try {
@@ -164,7 +164,7 @@ const removeAthleteFromTeam = async (req,res) => {
         console.log(error.message)
         res.status(500).json(error.message);
     };
-};
+}; //TO BE REFACTORED
 
 const enter_LeaveTeam = async (req,res) => {
     try {
@@ -193,7 +193,7 @@ const enter_LeaveTeam = async (req,res) => {
     } catch(error) {
         res.status(500).json(error.message);
     };
-};
+}; //TO BE REFACTORED
 
 const deleteTeam = async (req,res) => {
     try {
@@ -216,7 +216,7 @@ const deleteTeam = async (req,res) => {
     } catch(error) {
         res.status(500).json(error.message);
     };
-};
+}; //TO BE REFACTORED
 
 const functionModel = async (req,res) => {
     try {

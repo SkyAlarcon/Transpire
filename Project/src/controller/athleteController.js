@@ -175,7 +175,7 @@ const deleteAthlete = async (req,res) => {
     } catch(error) {
         res.status(500).json(error.message);
     };
-};
+}; //TO BE REFACTORED
 
 module.exports = {
     createAtlhete,
