@@ -98,7 +98,7 @@
 - README updated (grammar)
 
 
-## Version 0.3.6 - Code refactoring
+## Version 0.3.6 - Code refactoring + tests
 - teamController.js
   - Refactored code
 
@@ -106,3 +106,8 @@
   - Updated route "route.get("/:id", controller.findTeamById);" to "route.get("/find/:id", controller.findTeamById);"
 
 - Created Patch Notes file
+
+
+## Version 0.3.7 - Code refactoring + tests
+- teamController.js
+  - Refactored code

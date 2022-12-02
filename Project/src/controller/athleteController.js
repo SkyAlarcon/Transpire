@@ -158,9 +158,10 @@ const deleteAthlete = async (req,res) => {
         if(!findAthlete) return res.status(404).send("No athlete found");
         const teamOwner = []
         findAthlete.teams.forEach(team => {
-            if (team.adm.length == 1 && team.adm[0] == id) teamAdm.push(team);
+            if (team.adm.length == 1 && team.adm[0] == id) teamOwner.push(team);
+            console.log("after 4each")
         });
-        if (teamOwner.lenght > 0) return res.status(400).send("Please assign another Administrator to the following teams:", teamOwner);
+        if (teamOwner.length > 0) return res.status(400).send("Please assign another Administrator to the following teams:", teamOwner);
         const deletedAthlete = await athleteModel.findByIdAndDelete(id);
         res.status(200).json({ msg: `Athlete ${deletedAthlete.username} deleted` });
     } catch(error) {

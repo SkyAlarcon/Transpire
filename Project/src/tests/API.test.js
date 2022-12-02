@@ -191,7 +191,7 @@ describe("Third athlete - Create", () => {
     });
 });
 
-describe("First team - Create, Find, Enter/Leave team, Update", () => {
+describe("First team - Create, Find, Update", () => {
     test("CREATE Team 1 /teams/new", (done) => {
         request(app)
         .post(`/transpire/teams/new`)
@@ -244,9 +244,10 @@ describe("First team - Create, Find, Enter/Leave team, Update", () => {
             description: "Team updated info",
             adm: athleteID1
         })
+        .expect("Content-Type", /json/)
         .expect(200)
         .expect((res) => {
-            expect(res.body).toBe("Team updated successfully");
+            expect(res.body.msg).toBe("Team updated successfully");
         })
         .end((err,res) => {
             if(err) return done(err);
@@ -272,6 +273,179 @@ describe("First team - Create, Find, Enter/Leave team, Update", () => {
         .end ((err,res) => {
             if (err) return done(err);
             return done();
+        });
+    });
+    test("GET Find Query name /teams/[query]", (done) => {
+        request(app)
+        .get(`/transpire/teams/?name=Team`)
+        .set("Authorization", token)
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .end ((err,res) => {
+            if (err) return done(err);
+            return done();
+        });
+    });
+    test("GET Find Query sport /teams/[query]", (done) => {
+        request(app)
+        .get(`/transpire/teams/?sports=Cycling`)
+        .set("Authorization", token)
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.findTeams).toEqual([
+                {
+                  _id: teamID1,
+                  name: 'Team updated',
+                  sports: [ 'Cycling', 'Climbing' ],
+                  friendlyOrExclusive: 'exclusive',
+                  description: 'Team updated info'
+                }
+              ])
+        })
+        .end ((err,res) => {
+            if (err) return done(err);
+            return done();
+        });
+    });
+    test("GET Find Query trans /teams/[query]", (done) => {
+        request(app)
+        .get(`/transpire/teams/?trans=friendly`)
+        .set("Authorization", token)
+        .expect("Content-Type", /json/)
+        .expect(404)
+        .expect((res) => {
+            expect(res.body.msg).toBe("No team found")
+        })
+        .end ((err,res) => {
+            if (err) return done(err);
+            return done();
+        });
+    });
+});
+
+describe("Enter/Leave team, Add/Remove Admin, Remove Athlete by Admin", () => {
+    test("PATCH Enter team Athlete 2 /teams/enter_leave/:id", (done) => {
+        request(app)
+        .patch(`/transpire/teams/enter_leave/${teamID1}`)
+        .set("Authorization", token)
+        .send({ athleteID: athleteID2 })
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.msg).toBe("You joined the team")
+        })
+        .end((err,res) => {
+            if (err) return done(err);
+            return done();
+        });
+    });
+    test("PATCH Enter team Athlete 3 /teams/enter_leave/:id", (done) => {
+        request(app)
+        .patch(`/transpire/teams/enter_leave/${teamID1}`)
+        .set("Authorization", token)
+        .send({ athleteID: athleteID3 })
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.msg).toBe("You joined the team")
+        })
+        .end((err,res) => {
+            if (err) return done(err);
+            return done();
+        });
+    });
+    test("GET Find ID Team 1 /teams/find/:id", (done) => {
+        request(app)
+        .get(`/transpire/teams/find/${teamID1}`)
+        .set("Authorization", token)
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.findTeam).toEqual({
+                "_id": teamID1,
+                "name": "Team updated",
+                "sports": ["Cycling", "Climbing"],
+                "description": "Team updated info",
+                "athletes": [athleteID1, athleteID2, athleteID3],
+                "friendlyOrExclusive": "exclusive"
+            });
+        })
+        .end ((err,res) => {
+            if (err) return done(err);
+            return done();
+        });
+    });
+    test("PATCH Leave team Athlete 2 /teams/enter_leave/:id", (done) => {
+        request(app)
+        .patch(`/transpire/teams/enter_leave/${teamID1}`)
+        .set("Authorization", token)
+        .send({ athleteID: athleteID2 })
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.msg).toBe("You left the team")
+        })
+        .end((err,res) => {
+            if (err) return done(err);
+            return done();
+        });
+    });
+    test("GET Find ID Team 1 /teams/find/:id", (done) => {
+        request(app)
+        .get(`/transpire/teams/find/${teamID1}`)
+        .set("Authorization", token)
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.findTeam).toEqual({
+                "_id": teamID1,
+                "name": "Team updated",
+                "sports": ["Cycling", "Climbing"],
+                "description": "Team updated info",
+                "athletes": [athleteID1, athleteID3],
+                "friendlyOrExclusive": "exclusive"
+            });
+        })
+        .end ((err,res) => {
+            if (err) return done(err);
+            return done();
+        });
+    });
+    test("PATCH Add Admin", (done) => {
+        request(app)
+        .patch(`/transpire/teams/admin/${teamID1}`)
+        .set("Authorization", token)
+        .send({
+            add: athleteID3,
+            adm: athleteID1
+        })
+        .expect("Content-Type", /html/)
+        .expect(200)
+        .expect((res) => {
+            expect(res.text).toBe("New administrator added successfully")
+        })
+        .end((err,res) => {
+            if (err) return done(err);
+            done();
+        });
+    });
+    test("PATCH Remove Admin", (done) => {
+        request(app)
+        .patch(`/transpire/teams/admin/${teamID1}`)
+        .set("Authorization", token)
+        .send({
+            remove: athleteID3,
+            adm: athleteID3
+        })
+        .expect("Content-Type", /html/)
+        .expect(200)
+        .expect((res) => {
+            expect(res.text).toBe("Administrator removed successfully")
+        })
+        .end((err,res) => {
+            if (err) return done(err);
+            done();
         });
     });
 });
