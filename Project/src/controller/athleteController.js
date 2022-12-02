@@ -36,9 +36,9 @@ const login = async (req,res) => {
     try {
         const { username, password } = req.body;
         if(!username) return res.status(400).json("Please enter an Username");
-        const findAthlete = await athleteModel.findOne({ username: username });
-        if(!findAthlete) return res.status(404).json({ msg: `${username} not found` });
-        const isPasswordValid = bcrypt.compareSync(password, findAthlete.password);
+        const athleteExists = await athleteModel.findOne({ username: username });
+        if(!athleteExists) return res.status(404).json({ msg: `${username} not found` });
+        const isPasswordValid = bcrypt.compareSync(password, athleteExists.password);
         if (!isPasswordValid) return res.status(401).json({ msg: "Username or password incorrect" });
         const token = jwt.sign({ username: username }, SECRET);
         return res.status(200).send({token});
@@ -79,14 +79,14 @@ const updateAtlhete = async (req,res) => {
             if(isEmailTaken) return res.status(400).json({ msg: "Email already in use by another athlete" });
         };
         const { id } = req.params;
-        const findAthlete = await athleteModel.findByIdAndUpdate(id, {
+        const athleteExists = await athleteModel.findByIdAndUpdate(id, {
             username,
             pronouns,
             email,
             sports
         });
-        if(!findAthlete) return res.status(404).json({ msg: "No athlete found" });
-        const updatedAthlete = await athleteModel.findById(findAthlete.id, ["username", "email", "sports"]);
+        if(!athleteExists) return res.status(404).json({ msg: "No athlete found" });
+        const updatedAthlete = await athleteModel.findById(athleteExists.id, ["username", "email", "sports"]);
         res.status(200).json({ msg: "Athlete updated successfully", updatedAthlete});
     } catch(error){
         res.status(500).json(error.message);
@@ -100,9 +100,9 @@ const findAthleteById = async (req,res) => {
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { id } = req.params;
         if (!id) return res.status(400).send("Please enter an ID");
-        const findAthlete = await athleteModel.findById(id, ["-password", "-_id", "-__v"]);
-        if (!findAthlete) return res.status(404).send(`No atlhete found with ID`);
-        return res.status(200).json({findAthlete});
+        const athleteExists = await athleteModel.findById(id, ["-password", "-_id", "-__v"]);
+        if (!athleteExists) return res.status(404).json({ msg: `No athlete found with ID`});
+        return res.status(200).json({athleteExists});
     } catch(error) {
         res.status(500).json(error.message);
     };
@@ -138,9 +138,9 @@ const findAthleteByQuery = async (req,res) => {
             return res.status(200).send(findTeams);
         }
         if(sport){
-            const findAthlete = await athleteModel.find({sports: sport}, ["username", "sports", "teams"]);
-            if (!findAthlete) return res.status(404).send("No athletes found");
-            return res.status(200).send(findAthlete);
+            const athleteExists = await athleteModel.find({sports: sport}, ["username", "sports", "teams"]);
+            if (!athleteExists) return res.status(404).send("No athletes found");
+            return res.status(200).send(athleteExists);
         };
         res.status(400).send("Please enter a name, team or sport");
     } catch(error) {
@@ -154,18 +154,25 @@ const deleteAthlete = async (req,res) => {
         const BlockAccess = script.TokenVerifier(authHeader, SECRET);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { id } = req.params;
-        const findAthlete = await athleteModel.findById(id);
-        if(!findAthlete) return res.status(404).send("No athlete found");
+        const athleteExists = await athleteModel.findById(id);
+        if(!athleteExists) return res.status(404).send("No athlete found");
         const teamOwner = []
-        findAthlete.teams.forEach(team => {
+        athleteExists.teams.forEach(team => {
             if (team.adm.length == 1 && team.adm[0] == id) teamOwner.push(team);
-            console.log("after 4each")
         });
         if (teamOwner.length > 0) return res.status(400).send("Please assign another Administrator to the following teams:", teamOwner);
+        athleteExists.teams.forEach(async team => {
+            const athletesList = await teamModel.findById(team._id, ["athletes"])
+            for (let index = 0; index < athletesList.length; index++){
+                if (athletesList[index].toString().includes(id)){
+                    athletesList.splice(index, 1);
+                    break;
+                };
+            };
+        });
         const deletedAthlete = await athleteModel.findByIdAndDelete(id);
         res.status(200).json({ msg: `Athlete ${deletedAthlete.username} deleted` });
     } catch(error) {
-        console.log(error.message)
         res.status(500).json(error.message);
     };
 };

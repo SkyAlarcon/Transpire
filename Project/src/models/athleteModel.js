@@ -25,7 +25,8 @@ const UserSchema = mongoose.Schema(
         },
         sports: {
             type: [String],
-            required: true
+            required: true,
+            maxLength: 20
         },
         teams: {
             type: [mongoose.Schema.Types.ObjectId],

@@ -14,7 +14,9 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "stress": "jest --watch -- API-stress",
+    "helpNeeded": "jest -- --help"
   },
   "name": "trans-pira",
   "version": "1.0.0",

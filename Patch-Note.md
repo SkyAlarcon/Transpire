@@ -111,3 +111,10 @@
 
 - All methods tested and running!
 - Start of development of stress tests
+
+
+## Version 0.3.8 - Stres testing
+- Created stres tests
+
+- athleteController
+  - Refactored code
