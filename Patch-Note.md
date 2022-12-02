@@ -1,8 +1,5 @@
 # Patch Notes
 
-- Date format: dd/mm/yy
-
-
 ## Version 0.1 - Created README file
 - Created README file
 
@@ -111,3 +108,6 @@
 ## Version 0.3.7 - Code refactoring + tests
 - teamController.js
   - Refactored code
+
+- All methods tested and running!
+- Start of development of stress tests

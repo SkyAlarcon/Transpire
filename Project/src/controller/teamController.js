@@ -98,7 +98,7 @@ const addRemoveAdministrator = async (req,res) => {
         console.log(error.message)
         res.status(500).json(error.message);
     };
-}; //TO BE TESTED
+};
 
 const findTeamById = async (req,res) => {
     try {
@@ -151,7 +151,7 @@ const removeAthleteFromTeam = async (req,res) => {
         const BlockAccess = script.TokenVerifier(authHeader, SECRET);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { id } = req.params;
-        const findTeam = await teamModel.findTeamById(id);
+        const findTeam = await teamModel.findById(id);
         if(!findTeam) return res.status(404).send("No team found");
         const { adm, athlete } = req.body;
         if (!findTeam.adm.includes(adm)) return res.status(403).send(`Only administrator can remove athletes`);
@@ -159,10 +159,12 @@ const removeAthleteFromTeam = async (req,res) => {
         const athleteIndex = findTeam.athletes.indexOf(athlete);
         findTeam.athletes.splice(athleteIndex, 1);
         await teamModel.findByIdAndUpdate(id, {athletes: findTeam.athletes});
+        res.status(200).json({ msg: "Athlete removed from the team" });
     } catch(error) {
+        console.log(error.message)
         res.status(500).json(error.message);
     };
-}; //TO BE TESTED
+};
 
 const enter_LeaveTeam = async (req,res) => {
     try {

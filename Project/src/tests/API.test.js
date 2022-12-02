@@ -448,6 +448,24 @@ describe("Enter/Leave team, Add/Remove Admin, Remove Athlete by Admin", () => {
             done();
         });
     });
+    test("PATCH removeAthlete /teams/removeAthlete/:id", (done) => {
+        request(app)
+        .patch(`/transpire/teams/removeAthlete/${teamID1}`)
+        .set("Authorization", token)
+        .send({
+            adm: athleteID1,
+            athlete: athleteID3
+        })
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.msg).toBe("Athlete removed from the team")
+        })
+        .end((err,res) => {
+            if (err) return done(err);
+            done ();
+        });
+    });
 });
 
 describe("DELETE Teams and Athletes", () => {
