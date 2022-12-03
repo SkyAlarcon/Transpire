@@ -12,9 +12,9 @@ mudança no estilo de vida e se tornarem mais ativas fisicamente!
 - [Por que foi criada a Transpire :transgender_symbol:?](https://github.com/TotallyBabyWolf/Transpire#por-que-foi-criada-a-transpire-transgender_symbol)
 - [Como alcançaremos nosso objetivo](https://github.com/TotallyBabyWolf/Transpire#como-alcan%C3%A7aremos-nosso-objetivo)
 - [Como funciona](https://github.com/TotallyBabyWolf/Transpire#como-funciona)
+- [Conheça a desenvoledora](https://github.com/SkyAlarcon/Transpire#conhe%C3%A7a-a-desenvolvedora)
 - [Notas de Atualização (EN-US)](https://github.com/SkyAlarcon/Transpire/blob/main/Patch-Note.md)
-- [Descrição dos métodos usados (EN-US)]()
-- [Conheça a desenvoledora]()
+- [Descrição dos métodos usados (EN-US)](https://github.com/SkyAlarcon/Transpire/blob/main/Methods.md)
 
 
 ## O que é a Transpire :transgender_symbol:
