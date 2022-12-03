@@ -100,7 +100,7 @@
   - Refactored code
 
 - teamRoutes.js
-  - Updated route "route.get("/:id", controller.findTeamById);" to "route.get("/find/:id", controller.findTeamById);"
+  - Updated route "*route.get("/:id", controller.findTeamById);*" to "*route.get("/find/:id", controller.findTeamById);*"
 
 - Created Patch Notes file
 
@@ -137,7 +137,13 @@
 - athleteController.js
   - Implented "follow_Unfollow" method
   - Started code cleaning
+  - Refactored and cleaned deleteAthlete method
 
+- scripts.js
+  - Created script *RemoveIdByIndex*
+
+- README.md
+  - Updated README file
 
 
 

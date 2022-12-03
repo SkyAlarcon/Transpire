@@ -10,13 +10,16 @@
     "mongoose": "^6.7.3",
     "nodemon": "^2.0.20",
     "save": "^2.9.0",
-    "supertest": "^6.3.1"
+    "supertest": "^6.3.1",
+    "swagger-autogen": "^2.22.0",
+    "swagger-ui-express": "^4.6.0"
   },
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server,js -e .js",
     "test": "jest --watchAll",
-    "stress": "jest --watch -- API-stress"
+    "stress": "jest --watch -- API-stress",
+    "swag-autogen": "node swagger.js"
   },
   "name": "trans-pira",
   "version": "1.0.0",
