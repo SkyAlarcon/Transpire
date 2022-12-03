@@ -11,6 +11,7 @@ route.get("/find/:id", controller.findAthleteById);
 route.get("/", controller.findAthleteByQuery);
 
 route.patch("/update/:id", controller.updateAtlhete);
+route.patch("/followUnfollow/:id", controller.follow_Unfollow)
 
 route.delete("/delete/:id", controller.deleteAthlete);
 

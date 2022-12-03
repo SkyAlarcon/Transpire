@@ -154,29 +154,35 @@ const follow_Unfollow = async (req,res) => {
         const BlockAccess = script.TokenVerifier(authHeader, SECRET);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { id } = req.params;
-        const { follower } = req.body;
+        const { followerID } = req.body;
         const athleteExists = await athleteModel.findById(id, ["username", "followers"]);
         if (!athleteExists) return res.status(404).send("No athlete found");
-        const followerExists = await athleteModel.findById(follower, ["following"]);
+        const followerExists = await athleteModel.findById(followerID, ["following"]);
         if (!followerExists) return res.status(404).send("No follower found");
+        let unfollowed = false
         for (let indexAthlete = 0; indexAthlete < athleteExists.followers.length; indexAthlete++){
-            if (athleteExists.followers[indexAthlete].toString().includes(follower)) {
-                for (let indexFollower = 0; indexFollower < followerExists.following.length; indexFollower++){
-                    if (followerExists.following[indexFollower].toString().includes(id)){
-                        athleteExists.followers[indexAthlete].splice(indexAthlete, 1);
-                        await athleteModel.findByIdAndUpdate(id, {followers: athleteExists.followers});
-                        followerExists.following[indexFollower].splice(indexFollower, 1);
-                        await athleteModel.findByIdAndUpdate(follower, {following: followerExists.following});
-                        return res.status(200).json({ msg: `Unfollowed ${athleteExists.username}` });
-                    };
-                };
+            if (athleteExists.followers[indexAthlete] == followerID) {
+                athleteExists.followers.splice(indexAthlete, 1);
+                await athleteModel.findByIdAndUpdate(id, {followers: athleteExists.followers});
+                unfollowed = true;
+                break;
             };
         };
-        athleteExists.followers.push(follower);
-        await athleteModel.findByIdAndUpdate(id, {followers: athleteExists.followers});
-        followerExists.following.push(id);
-        await athleteModel.findByIdAndUpdate(follower, {following: followerExists.following});
-        res.status(200).json({ msg: `Followed ${athleteExists.username}`})
+        if (!unfollowed){
+            athleteExists.followers.push(followerID);
+            await athleteModel.findByIdAndUpdate(id, {followers: athleteExists.followers});
+            followerExists.following.push(id);
+            await athleteModel.findByIdAndUpdate(followerID, {following: followerExists.following});
+            return res.status(200).json({ msg: `Followed ${athleteExists.username}`})
+        };
+        for (let indexFollower = 0; indexFollower < followerExists.following.length; indexFollower++){
+            if (followerExists.following[indexFollower] == id){
+                followerExists.following.splice(indexFollower, 1);
+                await athleteModel.findByIdAndUpdate(followerID, {following: followerExists.following});
+                return res.status(200).json({ msg: `Unfollowed ${athleteExists.username}` });
+            };
+        };
+        res.status(400).json({ msg: "We don't know what went wrong, please contact support for help" })
     } catch(error) {
         res.status(500).json(error.message);
     };

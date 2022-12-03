@@ -13,10 +13,10 @@
     "supertest": "^6.3.1"
   },
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "dev": "nodemon server,js -e .js",
     "test": "jest --watchAll",
-    "stress": "jest --watch -- API-stress",
-    "helpNeeded": "jest -- --help"
+    "stress": "jest --watch -- API-stress"
   },
   "name": "trans-pira",
   "version": "1.0.0",
