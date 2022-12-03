@@ -10,10 +10,10 @@ Pessoas cis aliadas também são bem-vindas a participar e integrar nossa comuni
 
 ##  Índice
 
-- [O que é a Transpire :transgender_symbol:](https://github.com/TotallyBabyWolf/Transpire#o-que-%C3%A9-a-transpire-transgender_symbol)
-- [Por que foi criada a Transpire :transgender_symbol:?](https://github.com/TotallyBabyWolf/Transpire#por-que-foi-criada-a-transpire-transgender_symbol)
-- [Como alcançaremos nosso objetivo](https://github.com/TotallyBabyWolf/Transpire#como-alcan%C3%A7aremos-nosso-objetivo)
-- [Como funciona](https://github.com/TotallyBabyWolf/Transpire#como-funciona)
+- [O que é a Transpire :transgender_symbol:](https://github.com/SkyAlarcon/Transpire#o-que-%C3%A9-a-transpire-transgender_symbol)
+- [Por que foi criada a Transpire :transgender_symbol:?](https://github.com/SkyAlarcon/Transpire#por-que-foi-criada-a-transpire-transgender_symbol)
+- [Como alcançaremos nosso objetivo](https://github.com/SkyAlarcon/Transpire#como-alcan%C3%A7aremos-nosso-objetivo)
+- [Como funciona](https://github.com/SkyAlarcon/Transpire#como-funciona)
 - [Conheça a desenvoledora](https://github.com/SkyAlarcon/Transpire#conhe%C3%A7a-a-desenvolvedora)
 - [Notas de Atualização (EN-US)](https://github.com/SkyAlarcon/Transpire/blob/main/Patch-Note.md)
 - [Descrição dos métodos usados (EN-US)](https://github.com/SkyAlarcon/Transpire/blob/main/Methods.md)
