@@ -148,17 +148,52 @@ const findAthleteByQuery = async (req,res) => {
     };
 };
 
+const follow_Unfollow = async (req,res) => {
+    try {
+        const authHeader = req.get("Authorization");
+        const BlockAccess = script.TokenVerifier(authHeader, SECRET);
+        if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
+        const { id } = req.params;
+        const { follower } = req.body;
+        const athleteExists = await athleteModel.findById(id, ["username", "followers"]);
+        if (!athleteExists) return res.status(404).send("No athlete found");
+        const followerExists = await athleteModel.findById(follower, ["following"]);
+        if (!followerExists) return res.status(404).send("No follower found");
+        for (let indexAthlete = 0; indexAthlete < athleteExists.followers.length; indexAthlete++){
+            if (athleteExists.followers[indexAthlete].toString().includes(follower)) {
+                for (let indexFollower = 0; indexFollower < followerExists.following.length; indexFollower++){
+                    if (followerExists.following[indexFollower].toString().includes(id)){
+                        athleteExists.followers[indexAthlete].splice(indexAthlete, 1);
+                        await athleteModel.findByIdAndUpdate(id, {followers: athleteExists.followers});
+                        followerExists.following[indexFollower].splice(indexFollower, 1);
+                        await athleteModel.findByIdAndUpdate(follower, {following: followerExists.following});
+                        return res.status(200).json({ msg: `Unfollowed ${athleteExists.username}` });
+                    };
+                };
+            };
+        };
+        athleteExists.followers.push(follower);
+        await athleteModel.findByIdAndUpdate(id, {followers: athleteExists.followers});
+        followerExists.following.push(id);
+        await athleteModel.findByIdAndUpdate(follower, {following: followerExists.following});
+        res.status(200).json({ msg: `Followed ${athleteExists.username}`})
+    } catch(error) {
+        res.status(500).json(error.message);
+    };
+};
+
 const deleteAthlete = async (req,res) => {
     try {
         const authHeader = req.get("Authorization");
         const BlockAccess = script.TokenVerifier(authHeader, SECRET);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { id } = req.params;
-        const athleteExists = await athleteModel.findById(id);
+        const athleteExists = await athleteModel.findById(id, ['teams', 'followers', 'following']);
         if(!athleteExists) return res.status(404).send("No athlete found");
         const teamOwner = []
-        athleteExists.teams.forEach(team => {
-            if (team.adm.length == 1 && team.adm[0] == id) teamOwner.push(team);
+        athleteExists.teams.forEach(async team => {
+            const teamInfo = await teamModel.findById(team, "adm")
+            if (teamInfo.adm.length == 1 && teamInfo.adm.toString().includes(id)) teamOwner.push(team);
         });
         if (teamOwner.length > 0) return res.status(400).send("Please assign another Administrator to the following teams:", teamOwner);
         athleteExists.teams.forEach(async team => {
@@ -169,6 +204,7 @@ const deleteAthlete = async (req,res) => {
                     break;
                 };
             };
+            await teamModel.findByIdAndUpdate(team._id, {athletes: athletesList});
         });
         const deletedAthlete = await athleteModel.findByIdAndDelete(id);
         res.status(200).json({ msg: `Athlete ${deletedAthlete.username} deleted` });
@@ -184,5 +220,6 @@ module.exports = {
     updateAtlhete,
     findAthleteById,
     findAthleteByQuery,
+    follow_Unfollow,
     deleteAthlete
 }

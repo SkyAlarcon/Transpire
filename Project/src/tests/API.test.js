@@ -65,7 +65,7 @@ describe("First Athlete - create, login, getAll, Find [ID]", () => {
         .expect("Content-Type", /json/)
         .expect(200)
         .expect((res) => {
-            expect(res.body.findAthlete).toEqual({"email": "sky@doceu.com", "followers": [], "following": [], "pronouns": ["she", "her"], "sports": ["Cycling", "Parkour"], "teams": [], "username": "Sky"})
+            expect(res.body.athleteExists).toEqual({"email": "sky@doceu.com", "followers": [], "following": [], "pronouns": ["she", "her"], "sports": ["Cycling", "Parkour"], "teams": [], "username": "Sky"})
         })
         .end((err,res) => {
             if (err) return done(err);
@@ -484,14 +484,14 @@ describe("DELETE Teams and Athletes", () => {
             return done();
         });
     });
-    test("Delete ATLETA 1 /athletes/delete/:id", (done) => {
+    test("DELETE Athlete 1", (done) => {
         request(app)
         .delete(`/transpire/athletes/delete/${athleteID1}`)
         .set("Authorization", token)
-        .expect("Content-Type", /json/)
         .expect(200)
+        .expect("Content-Type", /json/)
         .expect((res) => {
-            expect(res.body.msg).toBe("Athlete Sky deleted");        
+            expect(res.body.msg).toBe(`Athlete Sky deleted`)
         })
         .end((err,res) => {
             if (err) return done(err);

@@ -12,7 +12,9 @@ mudança no estilo de vida e se tornarem mais ativas fisicamente!
 - [Por que foi criada a Transpire :transgender_symbol:?](https://github.com/TotallyBabyWolf/Transpire#por-que-foi-criada-a-transpire-transgender_symbol)
 - [Como alcançaremos nosso objetivo](https://github.com/TotallyBabyWolf/Transpire#como-alcan%C3%A7aremos-nosso-objetivo)
 - [Como funciona](https://github.com/TotallyBabyWolf/Transpire#como-funciona)
-- [Patch notes](https://github.com/SkyAlarcon/Transpire/blob/main/Patch-Note.md)
+- [Notas de Atualização (EN-US)](https://github.com/SkyAlarcon/Transpire/blob/main/Patch-Note.md)
+- [Descrição dos métodos usados (EN-US)]()
+- [Conheça a desenvoledora]()
 
 
 ## O que é a Transpire :transgender_symbol:
@@ -44,7 +46,7 @@ pois é necessário saber que eles existem que depende, tanto da
 divulgação externa do grupo ou atleta para a internet, quanto da 
 pessoa interessada em pesquisar a informação com as palavras-chave corretas na plataforma (instagram, tiktok, facebook, etc) correta.
 
-Com essas dificuldades em mente, surgiu a ideia da Transpire.
+Com essas dificuldades em mente, surgiu a ideia da Transpire:trangender_symbol:.
 
 
 ## Como alcançaremos nosso objetivo
@@ -70,12 +72,8 @@ A Transpire :transgender_symbol: conta com:
 * :pushpin: Listar atletas da Transpire :transgender_symbol:
 * :pushpin: Busca de atletas por nome ou esporte de interesse
 * :pushpin: Busca de atletas por ID
+* :pushpin: Seguir outre atleta
 * :pushpin: Apagar perfil de atleta
-
-A ser implementado:
-- [ ] Seguir outre atleta
-- [ ] Enviar mensagem para outre atleta
-
 
 ### :medal_sports: Para times :medal_sports:
 * :pushpin: Criação de times
@@ -87,3 +85,7 @@ A ser implementado:
 * :pushpin: Adicionar admins no time
 * :pushpin: Remover atletas do time
 * :pushpin: Apagar times
+
+
+## Conheça a desenvolvedora
+(TODO)
