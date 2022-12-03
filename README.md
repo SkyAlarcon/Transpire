@@ -6,6 +6,8 @@ Toda e qualquer pessoa trans é bem-vinda a participar da Transpire :transgender
 e compor nossa comunidade para que mais pessoas possam ter uma
 mudança no estilo de vida e se tornarem mais ativas fisicamente!
 
+Pessoas cis aliadas também são bem-vindas a participar e integrar nossa comunidade!
+
 ##  Índice
 
 - [O que é a Transpire :transgender_symbol:](https://github.com/TotallyBabyWolf/Transpire#o-que-%C3%A9-a-transpire-transgender_symbol)
@@ -46,7 +48,7 @@ pois é necessário saber que eles existem que depende, tanto da
 divulgação externa do grupo ou atleta para a internet, quanto da 
 pessoa interessada em pesquisar a informação com as palavras-chave corretas na plataforma (instagram, tiktok, facebook, etc) correta.
 
-Com essas dificuldades em mente, surgiu a ideia da Transpire:trangender_symbol:.
+Com essas dificuldades em mente, surgiu a ideia da Transpire :trangender_symbol:.
 
 
 ## Como alcançaremos nosso objetivo
@@ -89,3 +91,5 @@ A Transpire :transgender_symbol: conta com:
 
 ## Conheça a desenvolvedora
 (TODO)
+
+[Voltar para o índice](https://github.com/SkyAlarcon/Transpire#%C3%ADndice)
