@@ -44,7 +44,7 @@ let token = "bearer ";
 describe("Create 20 athletes + Test Dummy", () => {
     test("Athlete 1", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete1",
             password: "athlete1",
@@ -62,7 +62,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 2", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete2",
             password: "athlete2",
@@ -80,7 +80,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 3", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete3",
             password: "athlete3",
@@ -98,7 +98,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 4", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete4",
             password: "athlete4",
@@ -116,7 +116,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 5", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete5",
             password: "athlete5",
@@ -134,7 +134,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 6", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete6",
             password: "athlete6",
@@ -152,7 +152,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 7", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete7",
             password: "athlete7",
@@ -170,7 +170,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 8", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete8",
             password: "athlete8",
@@ -188,7 +188,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 9", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete9",
             password: "athlete9",
@@ -206,7 +206,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 10", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete10",
             password: "athlete10",
@@ -224,7 +224,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 11", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete11",
             password: "athlete11",
@@ -242,7 +242,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 12", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete12",
             password: "athlete12",
@@ -260,7 +260,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 13", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete13",
             password: "athlete13",
@@ -278,7 +278,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 14", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete14",
             password: "athlete14",
@@ -296,7 +296,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 15", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete15",
             password: "athlete15",
@@ -314,7 +314,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 16", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete16",
             password: "athlete16",
@@ -332,7 +332,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 17", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete17",
             password: "athlete17",
@@ -350,7 +350,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 18", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete18",
             password: "athlete18",
@@ -368,7 +368,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 19", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete19",
             password: "athlete19",
@@ -386,7 +386,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Athlete 20", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Athlete20",
             password: "athlete20",
@@ -404,7 +404,7 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
     test("Test Dummy", (done) => {
         request(app)
-        .post("/transpire/athletes/new")
+        .post("/athletes/new")
         .send({
             username: "Test Dummy",
             password: "testdummy",
@@ -422,13 +422,29 @@ describe("Create 20 athletes + Test Dummy", () => {
     });
 });
 
+describe("Create Errors", () => {
+    test("No username, password, email and sports", (done) => {
+        request(app)
+        .post("/athletes/new")
+        .expect(400)
+        .expect("Content-Type", /json/)
+        .expect((res) => {
+            expect(res.body.missingInfo).toEqual(["username", "password", "email", "sports"]);
+        })
+        .end((err,res) => {
+            if (err) return done(err);
+            return done();
+        });
+    });
+});
+
 describe("Login for token", () => {
     test("Login", (done) => {
         request(app)
-        .post(`/transpire/athletes/login`)
+        .post(`/athletes/login`)
         .send({
-            username: "Athlete1",
-            password: "athlete1"
+            username: "Test",
+            password: "test"
         })
         .expect(200)
         .expect("Content-Type", /json/)
@@ -443,7 +459,7 @@ describe("Login for token", () => {
 describe("Update athletes info (error tests)", () => {
     test("Test Dummy - no token", (done) => {
         request(app)
-        .patch(`/transpire/athletes/update/${dummyID}`)
+        .patch(`/athletes/update/${dummyID}`)
         .send({
             username: "Athlete1",
             pronouns: ["he", "him", "they", "them"],
@@ -461,7 +477,7 @@ describe("Update athletes info (error tests)", () => {
     });
     test("Test Dummy - used username", (done) => {
         request(app)
-        .patch(`/transpire/athletes/update/${dummyID}`)
+        .patch(`/athletes/update/${dummyID}`)
         .set("Authorization", token)
         .send({
             username: "Athlete1",
@@ -480,7 +496,7 @@ describe("Update athletes info (error tests)", () => {
     });
     test("Test Dummy - used email", (done) => {
         request(app)
-        .patch(`/transpire/athletes/update/${dummyID}`)
+        .patch(`/athletes/update/${dummyID}`)
         .set("Authorization", token)
         .send({
             email: "athlete1@transpire.com",
@@ -499,7 +515,7 @@ describe("Update athletes info (error tests)", () => {
     });
     test("Test Dummy - wrong ID", (done) => {
         request(app)
-        .patch(`/transpire/athletes/update/6386abc4bfa4b645cc2e340e`)
+        .patch(`/athletes/update/6386abc4bfa4b645cc2e340e`)
         .set("Authorization", token)
         .send({
             pronouns: ["he", "him", "they", "them"],
@@ -517,7 +533,7 @@ describe("Update athletes info (error tests)", () => {
     });
     test("Test Dummy - Update Complete", (done) => {
         request(app)
-        .patch(`/transpire/athletes/update/${dummyID}`)
+        .patch(`/athletes/update/${dummyID}`)
         .set("Authorization", token)
         .send({
             username: "Test Dummy 2.0",
@@ -540,7 +556,7 @@ describe("Update athletes info (error tests)", () => {
 describe("GET Methods (/find, /?query)", () => {
     test("Find Dummy by ID - no token", (done) => {
         request(app)
-        .get(`/transpire/athletes/find/${dummyID}`)
+        .get(`/athletes/find/${dummyID}`)
         .expect(401)
         .expect("Content-Type", /html/)
         .expect(res => {
@@ -553,7 +569,7 @@ describe("GET Methods (/find, /?query)", () => {
     });
     test("Find Dummy by ID - wrong ID", (done) => {
         request(app)
-        .get(`/transpire/athletes/find/6386abc4bfa4b645cc2e340e`)
+        .get(`/athletes/find/6386abc4bfa4b645cc2e340e`)
         .set("Authorization", token)
         .expect(404)
         .expect("Content-Type", /json/)
@@ -567,7 +583,7 @@ describe("GET Methods (/find, /?query)", () => {
     });
     test("Find Dummy by ID - Find complete", (done) => {
         request(app)
-        .get(`/transpire/athletes/find/${dummyID}`)
+        .get(`/athletes/find/${dummyID}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -592,7 +608,7 @@ describe("GET Methods (/find, /?query)", () => {
 describe("DB cleanup", () => {
     test("Athlete 1", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID1}`)
+        .delete(`/athletes/delete/${athleteID1}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -606,7 +622,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 2", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID2}`)
+        .delete(`/athletes/delete/${athleteID2}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -620,7 +636,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 3", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID3}`)
+        .delete(`/athletes/delete/${athleteID3}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -634,7 +650,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 4", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID4}`)
+        .delete(`/athletes/delete/${athleteID4}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -648,7 +664,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 5", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID5}`)
+        .delete(`/athletes/delete/${athleteID5}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -662,7 +678,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 6", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID6}`)
+        .delete(`/athletes/delete/${athleteID6}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -676,7 +692,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 7", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID7}`)
+        .delete(`/athletes/delete/${athleteID7}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -690,7 +706,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 8", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID8}`)
+        .delete(`/athletes/delete/${athleteID8}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -704,7 +720,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 9", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID9}`)
+        .delete(`/athletes/delete/${athleteID9}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -718,7 +734,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 10", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID10}`)
+        .delete(`/athletes/delete/${athleteID10}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -732,7 +748,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 11", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID11}`)
+        .delete(`/athletes/delete/${athleteID11}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -746,7 +762,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 12", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID12}`)
+        .delete(`/athletes/delete/${athleteID12}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -760,7 +776,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 13", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID13}`)
+        .delete(`/athletes/delete/${athleteID13}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -774,7 +790,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 14", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID14}`)
+        .delete(`/athletes/delete/${athleteID14}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -788,7 +804,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 15", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID15}`)
+        .delete(`/athletes/delete/${athleteID15}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -802,7 +818,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 16", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID16}`)
+        .delete(`/athletes/delete/${athleteID16}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -816,7 +832,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 17", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID17}`)
+        .delete(`/athletes/delete/${athleteID17}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -830,7 +846,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 18", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID18}`)
+        .delete(`/athletes/delete/${athleteID18}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -844,7 +860,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 19", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID19}`)
+        .delete(`/athletes/delete/${athleteID19}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -858,7 +874,7 @@ describe("DB cleanup", () => {
     });
     test("Athlete 20", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${athleteID20}`)
+        .delete(`/athletes/delete/${athleteID20}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -872,7 +888,7 @@ describe("DB cleanup", () => {
     });
     test("Test Dummy", (done) => {
         request(app)
-        .delete(`/transpire/athletes/delete/${dummyID}`)
+        .delete(`/athletes/delete/${dummyID}`)
         .set("Authorization", token)
         .expect(200)
         .expect("Content-Type", /json/)
@@ -885,3 +901,16 @@ describe("DB cleanup", () => {
         });
     });
 });
+
+/*
+describe("Test Model", () => {
+    test("No username", (done) => {
+        request(app)
+
+        .end((err,res) => {
+            if (err) return done(err);
+            done();
+        })
+    });
+});
+*/

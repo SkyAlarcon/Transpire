@@ -3,8 +3,7 @@ const teamModel = require("../models/teamModel");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
-const SECRET = process.env.SECRET
+const SECRET = process.env.SECRET;
 
 const script = require("./scripts");
 
@@ -17,6 +16,12 @@ const createAtlhete = async (req, res) => {
             email,
             sports
         } = req.body;
+        const missingInfo = []
+        if (!username) missingInfo.push("username");
+        if (!password) missingInfo.push("password");
+        if (!email) missingInfo.push("email");
+        if (!sports) missingInfo.push("sports");
+        if (missingInfo.length > 0) return res.status(400).json ({ msg: "Please add the following informations:", missingInfo });
         const passwordHashed = bcrypt.hashSync(password, 10);
         const newAtlhete = new athleteModel({
             username,
@@ -50,7 +55,7 @@ const login = async (req, res) => {
 const allAtlhetes = async (req, res) => {
     try {
         const authHeader = req.get("Authorization");
-        const BlockAccess = script.TokenVerifier(authHeader, SECRET);
+        const BlockAccess = script.TokenVerifier(authHeader);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const atlheteAll = await athleteModel.find({}, ["username", "sports", "teams"])
         res.status(200).json({ atlheteAll });
@@ -62,7 +67,7 @@ const allAtlhetes = async (req, res) => {
 const updateAtlhete = async (req, res) => {
     try {
         const authHeader = req.get("Authorization");
-        const BlockAccess = script.TokenVerifier(authHeader, SECRET);
+        const BlockAccess = script.TokenVerifier(authHeader);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const {
             username,
@@ -96,7 +101,7 @@ const updateAtlhete = async (req, res) => {
 const findAthleteById = async (req, res) => {
     try {
         const authHeader = req.get("Authorization");
-        const BlockAccess = script.TokenVerifier(authHeader, SECRET);
+        const BlockAccess = script.TokenVerifier(authHeader);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { id } = req.params;
         if (!id) return res.status(400).send("Please enter an ID");
@@ -111,7 +116,7 @@ const findAthleteById = async (req, res) => {
 const findAthleteByQuery = async (req, res) => {
     try {
         const authHeader = req.get("Authorization");
-        const BlockAccess = script.TokenVerifier(authHeader, SECRET);
+        const BlockAccess = script.TokenVerifier(authHeader);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { name, sport, team } = req.query;
         if (name) {
@@ -151,7 +156,7 @@ const findAthleteByQuery = async (req, res) => {
 const follow_Unfollow = async (req, res) => {
     try {
         const authHeader = req.get("Authorization");
-        const BlockAccess = script.TokenVerifier(authHeader, SECRET);
+        const BlockAccess = script.TokenVerifier(authHeader);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { id } = req.params;
         const { followerID } = req.body;
@@ -191,7 +196,7 @@ const follow_Unfollow = async (req, res) => {
 const deleteAthlete = async (req, res) => {
     try {
         const authHeader = req.get("Authorization");
-        const BlockAccess = script.TokenVerifier(authHeader, SECRET);
+        const BlockAccess = script.TokenVerifier(authHeader);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { id } = req.params;
         const athleteExists = await athleteModel.findById(id, ['teams', 'followers', 'following']);

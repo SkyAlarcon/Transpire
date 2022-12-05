@@ -138,13 +138,23 @@
   - Implented "follow_Unfollow" method
   - Started code cleaning
   - Refactored and cleaned deleteAthlete method
+  - Removed variable **SECRET**
+
+- teamController.js
+  - Removed variable **SECRET**
 
 - scripts.js
   - Created script *RemoveIdByIndex*
+  - Created variable **SECRET** to replace variables in athlete and team controller
 
 - README.md
   - Updated README file
+  - Added "Tecnologias utilizadas" section
 
+- Created file swagger
 
+- Created swagger.js for deployment
+
+- Changed routes from "*/transpire/{route}*" to "*/{route}*"
 
 - [Go back to README](https://github.com/SkyAlarcon/Transpire#readme)

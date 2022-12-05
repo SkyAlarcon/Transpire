@@ -1,6 +1,8 @@
+const SECRET = process.env.SECRET
+
 const jwt = require("jsonwebtoken");
 
-const TokenVerifier = (header = "", SECRET) => {
+const TokenVerifier = (header = "") => {
     const token = header.split(" ")[1];
     if(!token) {
         return true;

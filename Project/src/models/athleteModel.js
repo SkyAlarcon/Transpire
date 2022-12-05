@@ -34,10 +34,10 @@ const UserSchema = mongoose.Schema(
             ref: "team"
         },
         following: {
-            type: [mongoose.Schema.Types.ObjectId],
+            type: [mongoose.Schema.Types.ObjectId]
         },
         followers: {
-            type: [mongoose.Schema.Types.ObjectId],
+            type: [mongoose.Schema.Types.ObjectId]
         }
     }
 );

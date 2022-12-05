@@ -11,7 +11,7 @@ route.get("/", controller.findTeamByQuery);
 route.patch("/update/:id", controller.updateTeam);
 route.patch("/admin/:id", controller.addRemoveAdministrator);
 route.patch("/removeAthlete/:id", controller.removeAthleteFromTeam);
-route.patch("/enter_leave/:id", controller.enter_LeaveTeam);
+route.patch("/enterLeave/:id", controller.enter_LeaveTeam);
 
 route.delete("/delete/:id", controller.deleteTeam);
 

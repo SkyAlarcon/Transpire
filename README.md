@@ -14,6 +14,7 @@ Pessoas cis aliadas também são bem-vindas a participar e integrar nossa comuni
 - [Por que foi criada a Transpire :transgender_symbol:?](https://github.com/SkyAlarcon/Transpire#por-que-foi-criada-a-transpire-transgender_symbol)
 - [Como alcançaremos nosso objetivo](https://github.com/SkyAlarcon/Transpire#como-alcan%C3%A7aremos-nosso-objetivo)
 - [Como funciona](https://github.com/SkyAlarcon/Transpire#como-funciona)
+- [Tecnoligias utilizadas](https://github.com/SkyAlarcon/Transpire#tecnologias-utilizadas)
 - [Conheça a desenvoledora](https://github.com/SkyAlarcon/Transpire#conhe%C3%A7a-a-desenvolvedora)
 - [Notas de Atualização (EN-US)](https://github.com/SkyAlarcon/Transpire/blob/main/Patch-Note.md)
 - [Descrição dos métodos usados (EN-US)](https://github.com/SkyAlarcon/Transpire/blob/main/Methods.md)
@@ -65,7 +66,7 @@ dar um volta de bicicleta no parque.
 
 
 ## Como funciona
-A Transpire :transgender_symbol: conta com:
+A Transpire :transgender_symbol: conta com funcionalidades:
 
 ### :1st_place_medal: Para atletas :1st_place_medal:
 * :pushpin: Criação de perfil para atletas novos
@@ -77,6 +78,9 @@ A Transpire :transgender_symbol: conta com:
 * :pushpin: Seguir outre atleta
 * :pushpin: Apagar perfil de atleta
 
+Em desenvolvimento:
+- [ ] Enviar mensagem entre atletas
+
 ### :medal_sports: Para times :medal_sports:
 * :pushpin: Criação de times
 * :pushpin: Atualização dos dados do time
@@ -87,6 +91,24 @@ A Transpire :transgender_symbol: conta com:
 * :pushpin: Adicionar admins no time
 * :pushpin: Remover atletas do time
 * :pushpin: Apagar times
+
+Em desenvolvimento:
+- [ ] Fazer uma postagem no time
+
+
+## Tecnologias utilizadas
+### Bibliotecas (e suas versões):
+- bcrypt (5.1.0)
+- cors (2.8.5)
+- dotenv-safe (8.2.0)
+- eslint (8.28.0)
+- express (4.18.2)
+- jest (29.3.1)
+- jsonwebtoken (8.5.1)
+- mongoose (6.7.3)
+- nodemon (2.0.20)
+- save (2.9.0)
+- supertest (6.3.1)
 
 
 ## Conheça a desenvolvedora
