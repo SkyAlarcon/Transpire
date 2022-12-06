@@ -24,4 +24,7 @@ app.use("/athletes", athleteRoutes);
 const teamRoutes = require("./routes/teamRoutes");
 app.use("/teams", teamRoutes);
 
+const postRoutes = require("./routes/postsRoutes");
+app.use("/post", postRoutes);
+
 module.exports = app;

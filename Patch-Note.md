@@ -138,7 +138,6 @@
   - Implented "follow_Unfollow" method
   - Started code cleaning
   - Refactored and cleaned deleteAthlete method
-  - Removed variable **SECRET**
 
 - teamController.js
   - Removed variable **SECRET**
@@ -156,5 +155,23 @@
 - Created swagger.js for deployment
 
 - Changed routes from "*/transpire/{route}*" to "*/{route}*"
+
+
+## Version 0.4.3 - Model por messages and posts created
+- models
+  - Created postModel.js
+  - Created messageModel.js
+
+## Version 0.5.1 - Implemented posts to teams feed
+- teamController.js
+  - Implemented team feed
+
+
+- athleteController.js
+  - Implemented athlete feed
+
+- Created postController.js
+  - Implemented new post method
+  - Implemented delete post method
 
 - [Go back to README](https://github.com/SkyAlarcon/Transpire#readme)

@@ -38,6 +38,14 @@ const UserSchema = mongoose.Schema(
         },
         followers: {
             type: [mongoose.Schema.Types.ObjectId]
+        },
+        inbox: {
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: "message"
+        },
+        teamPosts: {
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: "post"
         }
     }
 );

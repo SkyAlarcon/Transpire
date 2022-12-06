@@ -1,5 +1,6 @@
 const atlheteModel = require("../models/athleteModel");
 const teamModel = require("../models/teamModel");
+const postModel = require("../models/postModel");
 
 const script = require("./scripts");
 
@@ -42,7 +43,7 @@ const allTeams = async (req,res) => {
         const authHeader = req.get("Authorization");
         const BlockAccess = script.TokenVerifier(authHeader);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
-        const allTeamsList = await teamModel.find({}, ["name", "sports", "description"]);
+        const allTeamsList = await teamModel.find({}, ["name", "sports", "description", "athletes"]);
         res.status(200).json(allTeamsList);
     } catch(error) {
         res.status(500).json(error.message);
@@ -193,7 +194,7 @@ const enter_LeaveTeam = async (req,res) => {
             athleteExists.teams = script.RemoveIdByIndex(id, athleteExists.teams);
             await atlheteModel.findByIdAndUpdate(athleteID, {teams: athleteExists.teams })
             teamExists.athletes = script.RemoveIdByIndex(athleteID, teamExists.athletes);
-            athleteExists.adm = script.RemoveIdByIndex(id, athleteExists.adm);
+            teamExists.adm = script.RemoveIdByIndex(id, teamExists.adm);
             await teamModel.findByIdAndUpdate(id, {athletes: teamExists.athletes, adm: teamExists.adm});
             msg = "You left the team";
             return res.status(200).json({ msg: msg });
@@ -210,17 +211,64 @@ const deleteTeam = async (req,res) => {
         const BlockAccess = script.TokenVerifier(authHeader);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { id } = req.params;
-        const teamExists = await teamModel.findById(id, ["adm","athletes", "name"]);
+        const teamExists = await teamModel.findById(id, ["adm","athletes", "name", "posts"]);
         if (!teamExists) return res.status(404).send("Team not found");
         const { adm } = req.body;
         if (!teamExists.adm.toString().includes(adm)) return res.status(403).send("You need to be an administrator do delete the team");
-        teamExists.athletes.forEach(async athleteID => {
-            const athlete = await atlheteModel.findById(athleteID, ["teams"]);
+        for (let athleteIndex = 0; athleteIndex < teamExists.athletes.length; athleteIndex++) {
+            const athlete = await atlheteModel.findById(teamExists.athletes[athleteIndex], ["teams", "teamPosts"]);
             athlete.teams = script.RemoveIdByIndex(id, athlete.teams);
-            await atlheteModel.findByIdAndUpdate(athleteID, {teams: athlete.teams});
-        });
+            const postsIdToDelete = await postModel.find({teamID: id, athleteOpID: athlete.id},"id");
+            postsIdToDelete.forEach(idToDelete => {
+                athlete.teamPosts = script.RemoveIdByIndex(idToDelete.id, athlete.teamPosts);
+            });
+            await atlheteModel.findByIdAndUpdate(athlete.id, {"teams": athlete.teams,"teamPosts": athlete.teamPosts});
+        };
+        teamExists.posts.forEach(async postID => await postModel.findByIdAndDelete(postID))
         await teamModel.findByIdAndDelete(id)
         res.status(200).json({ msg: `Team ${teamExists.name} deleted` })
+    } catch(error) {
+        res.status(500).json(error.message);
+    };
+};
+
+const teamFeed = async (req,res) => {
+    try {
+        const authHeader = req.get("Authorization");
+        const BlockAccess = script.TokenVerifier(authHeader);
+        if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
+        const { id } = req.params;
+        const teamExists = await teamModel.findById(id, ["posts"]);
+        if (!teamExists) return res.status(404).send("Team not found");
+        const teamFeed = await postModel.find({teamID: id});
+        res.status(200).json({ posts: teamFeed });
+    } catch(error) {
+        res.status(500).json(error.message);
+    };
+};
+
+const testViewer = async (req,res) => {
+    try {
+        const authHeader = req.get("Authorization");
+        const BlockAccess = script.TokenVerifier(authHeader);
+        if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
+        const { id } = req.params;
+        const teamExists = await teamModel.findById(id, ["adm", "posts", "athletes"]);
+        if (!teamExists) return res.status(404).send("Team not found");
+        const { adm } = req.body;
+        if (!teamExists.adm.toString().includes(adm)) return res.status(403).send("You need to be an administrator do delete the team");
+        for (let athleteIndex = 0; athleteIndex < teamExists.athletes.length; athleteIndex++) {
+            const athlete = await atlheteModel.findById(teamExists.athletes[athleteIndex], ["teams", "teamPosts"]);
+            athlete.teams = script.RemoveIdByIndex(id, athlete.teams);
+            const postsIdToDelete = await postModel.find({teamID: id, athleteOpID: athlete.id},"id");
+            postsIdToDelete.forEach(idToDelete => {
+                athlete.teamPosts = script.RemoveIdByIndex(idToDelete.id, athlete.teamPosts);
+            });            
+            await atlheteModel.findByIdAndUpdate(athlete.id, {"teams": athlete.teams,"teamPosts": athlete.teamPosts});
+        };
+        teamExists.posts.forEach(async postID => await postModel.findByIdAndDelete(postID))
+        await teamModel.findByIdAndDelete(id);
+        res.status(200).json({ msg: "end of test" });
     } catch(error) {
         res.status(500).json(error.message);
     };
@@ -245,5 +293,7 @@ module.exports = {
     findTeamByQuery,
     deleteTeam,
     removeAthleteFromTeam,
-    enter_LeaveTeam
+    enter_LeaveTeam,
+    teamFeed,
+    testViewer
 }

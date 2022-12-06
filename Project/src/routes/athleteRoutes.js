@@ -9,6 +9,7 @@ route.post("/login", controller.login);
 route.get("/all", controller.allAtlhetes);
 route.get("/find/:id", controller.findAthleteById);
 route.get("/", controller.findAthleteByQuery);
+route.get("/feed/:id", controller.athleteFeed);
 
 route.patch("/update/:id", controller.updateAtlhete);
 route.patch("/followUnfollow/:id", controller.follow_Unfollow)

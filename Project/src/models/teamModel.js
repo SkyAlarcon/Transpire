@@ -39,6 +39,10 @@ const TeamSchema = mongoose.Schema(
         athletes: {
             type: [mongoose.Schema.Types.ObjectId],
             required: true
+        },
+        posts: {
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: "post"
         }
     },
     { timestamp: true }

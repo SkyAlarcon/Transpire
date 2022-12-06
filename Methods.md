@@ -108,6 +108,11 @@
 - Delete team
   - Remove the team from ALL athletes' teams list
 
+## newPost
+- Create a new post
+  - Saves post's ID to athlete who posted
+  - Saves post's ID to team's post
+
 
 # End of developed methods
 

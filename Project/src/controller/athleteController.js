@@ -230,6 +230,20 @@ const deleteAthlete = async (req, res) => {
     };
 };
 
+const athleteFeed = async (req,res) => {
+    try {
+        const authHeader = req.get("Authorization");
+        const BlockAccess = script.TokenVerifier(authHeader);
+        if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
+        const { id } = req.params;
+        const athleteExists = await athleteModel.findById(id, "teamPosts");
+        if (!athleteExists) return res.status(404).send("No athlete found");
+        res.status(200).json({ feed: athleteExists.teamPosts });
+    } catch(error) {
+        res.status(500).json(error.message);
+    };
+};
+
 module.exports = {
     createAtlhete,
     login,
@@ -238,5 +252,6 @@ module.exports = {
     findAthleteById,
     findAthleteByQuery,
     follow_Unfollow,
-    deleteAthlete
+    deleteAthlete,
+    athleteFeed
 }
