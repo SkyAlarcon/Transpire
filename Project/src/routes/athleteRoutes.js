@@ -10,9 +10,11 @@ route.get("/all", controller.allAtlhetes);
 route.get("/find/:id", controller.findAthleteById);
 route.get("/", controller.findAthleteByQuery);
 route.get("/feed/:id", controller.athleteFeed);
+route.get("/message/:id", controller.viewMessages);
 
 route.patch("/update/:id", controller.updateAtlhete);
 route.patch("/followUnfollow/:id", controller.follow_Unfollow)
+route.patch("/message/:id", controller.sendMessage);
 
 route.delete("/delete/:id", controller.deleteAthlete);
 

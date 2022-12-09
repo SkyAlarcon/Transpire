@@ -17,7 +17,4 @@ route.patch("/enterLeave/:id", controller.enter_LeaveTeam);
 
 route.delete("/delete/:id", controller.deleteTeam);
 
-
-route.delete("/test/:id", controller.testViewer);
-
 module.exports = route

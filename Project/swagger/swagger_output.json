@@ -11,7 +11,18 @@
     "http"
   ],
   "paths": {
-    "/transpire/athletes/new": {
+    "/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/athletes/new": {
       "post": {
         "description": "",
         "parameters": [
@@ -44,13 +55,16 @@
           "201": {
             "description": "Created"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "500": {
             "description": "Internal Server Error"
           }
         }
       }
     },
-    "/transpire/athletes/login": {
+    "/athletes/login": {
       "post": {
         "description": "",
         "parameters": [
@@ -89,7 +103,7 @@
         }
       }
     },
-    "/transpire/athletes/all": {
+    "/athletes/all": {
       "get": {
         "description": "",
         "parameters": [],
@@ -106,7 +120,7 @@
         }
       }
     },
-    "/transpire/athletes/find/{id}": {
+    "/athletes/find/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -136,7 +150,7 @@
         }
       }
     },
-    "/transpire/athletes/": {
+    "/athletes/": {
       "get": {
         "description": "",
         "parameters": [
@@ -175,7 +189,95 @@
         }
       }
     },
-    "/transpire/athletes/update/{id}": {
+    "/athletes/feed/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/athletes/message/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "senderID": {
+                  "example": "any"
+                },
+                "msg": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/athletes/update/{id}": {
       "patch": {
         "description": "",
         "parameters": [
@@ -226,7 +328,7 @@
         }
       }
     },
-    "/transpire/athletes/followUnfollow/{id}": {
+    "/athletes/followUnfollow/{id}": {
       "patch": {
         "description": "",
         "parameters": [
@@ -268,7 +370,7 @@
         }
       }
     },
-    "/transpire/athletes/delete/{id}": {
+    "/athletes/delete/{id}": {
       "delete": {
         "description": "",
         "parameters": [
@@ -298,7 +400,7 @@
         }
       }
     },
-    "/transpire/teams/new": {
+    "/teams/new": {
       "post": {
         "description": "",
         "parameters": [
@@ -349,7 +451,7 @@
         }
       }
     },
-    "/transpire/teams/all": {
+    "/teams/all": {
       "get": {
         "description": "",
         "parameters": [],
@@ -366,7 +468,7 @@
         }
       }
     },
-    "/transpire/teams/find/{id}": {
+    "/teams/find/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -393,7 +495,7 @@
         }
       }
     },
-    "/transpire/teams/": {
+    "/teams/": {
       "get": {
         "description": "",
         "parameters": [
@@ -432,7 +534,34 @@
         }
       }
     },
-    "/transpire/teams/update/{id}": {
+    "/teams/feed/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/teams/update/{id}": {
       "patch": {
         "description": "",
         "parameters": [
@@ -486,7 +615,7 @@
         }
       }
     },
-    "/transpire/teams/admin/{id}": {
+    "/teams/admin/{id}": {
       "patch": {
         "description": "",
         "parameters": [
@@ -505,10 +634,7 @@
                 "adm": {
                   "example": "any"
                 },
-                "add": {
-                  "example": "any"
-                },
-                "remove": {
+                "newAdmID": {
                   "example": "any"
                 }
               }
@@ -537,7 +663,7 @@
         }
       }
     },
-    "/transpire/teams/removeAthlete/{id}": {
+    "/teams/removeAthlete/{id}": {
       "patch": {
         "description": "",
         "parameters": [
@@ -556,7 +682,7 @@
                 "adm": {
                   "example": "any"
                 },
-                "athlete": {
+                "athleteID": {
                   "example": "any"
                 }
               }
@@ -582,7 +708,7 @@
         }
       }
     },
-    "/transpire/teams/enter_leave/{id}": {
+    "/teams/enterLeave/{id}": {
       "patch": {
         "description": "",
         "parameters": [
@@ -624,7 +750,7 @@
         }
       }
     },
-    "/transpire/teams/delete/{id}": {
+    "/teams/delete/{id}": {
       "delete": {
         "description": "",
         "parameters": [
@@ -650,6 +776,150 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/post/new/{id}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "opId": {
+                  "example": "any"
+                },
+                "msg": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/post/edit/{id}": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "opID": {
+                  "example": "any"
+                },
+                "msg": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/post/delete/{id}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "admID": {
+                  "example": "any"
+                },
+                "opID": {
+                  "example": "any"
+                },
+                "teamID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"

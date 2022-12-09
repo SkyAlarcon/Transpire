@@ -175,4 +175,11 @@
   - Implemented new post method
   - Implemented delete post method
 
+## Version 0.6.1 - Implemented Message between users
+- athleteController.js
+  - Implemented message methods
+    - View message
+    - Send message
+  - Refactored delete athlete
+
 - [Go back to README](https://github.com/SkyAlarcon/Transpire#readme)

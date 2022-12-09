@@ -227,15 +227,19 @@ const deleteAthlete = async (req, res) => {
 
         athleteExists.inbox.forEach(async msgID => {
             const msgExists = await messageModel.findById(msgID, "athleteIDs");
-            
-        })
+            if (msgExists.athleteIDs.length < 2) await messageModel.findByIdAndDelete(msgID);
+            if (msgExists.athleteIDs.length == 2){
+                msgExists.athleteIDs = script.RemoveIdByIndex(id, msgExists.athleteIDs);
+                await messageModel.findByIdAndUpdate(msgID, {athleteIDs: msgExists.athleteIDs});
+            };
+        });
 
         const deletedAthlete = await athleteModel.findByIdAndDelete(id);
         res.status(200).json({ msg: `Athlete ${deletedAthlete.username} deleted` });
     } catch (error) {
         res.status(500).json(error.message);
     };
-}; //TO ADD MESSAGE DELETION
+}; //TO BE TESTED
 
 const athleteFeed = async (req,res) => {
     try {
@@ -262,25 +266,45 @@ const sendMessage = async (req,res) => {
         const { senderID, msg } = req.body;
         const senderExists = await athleteModel.findById(senderID, ["username", "inbox"]);
         if (!senderExists) return res.status(404).send("No sender found");
-        const messageExists = await messageModel.find({athleteID: id, athleteID: senderID});
+        const messageExists = await messageModel.findOne({athleteID: id, athleteID: senderID});
         const trimmedMsg = msg.trim();
-        const newDM = [`${senderExists}\n`+ trimmedMsg];
+        const newDM = `Sender: ${senderExists.username}\n`+ trimmedMsg;
         if (!messageExists) {
             const newMessage = new messageModel({
                 athleteIDs: [senderID, id],
-                message: newDM 
+                messages: newDM 
             });
             const savedMessage = await newMessage.save();
-            recieverExists.inbox.push(savedMessage.id);
+            recieverExists.inbox = savedMessage.id;
             await athleteModel.findByIdAndUpdate(id, {inbox: recieverExists.inbox});
             senderExists.inbox.push(savedMessage.id);
             await athleteModel.findByIdAndUpdate(senderID, {inbox: senderExists.inbox});
         };
         if (messageExists) {
             messageExists.messages.push(newDM);
-            await messageModel.findByIdAndUpdate(messageExists.id, {messages: newDM});
+            console.log(messageExists.messages)
+            await messageModel.findByIdAndUpdate(messageExists.id, {messages: messageExists.messages});
         };
         res.status(200).json({ msg: `Message sent to ${recieverExists.username}`});
+    } catch(error) {
+        res.status(500).json(error.message);
+    };
+};
+
+const viewMessages = async (req,res) => {
+    try {
+        const authHeader = req.get("Authorization");
+        const BlockAccess = script.TokenVerifier(authHeader);
+        if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
+        const { id } = req.params;
+        const athlete1Exists = await athleteModel.findById(id);
+        if (!athlete1Exists) return res.status(404).send("No athlete found");
+        const { userID } = req.body;
+        const athlete2Exists = await athleteModel.findById(userID);
+        if (!athlete2Exists) return res.status(404).send("No athlete found");
+        const messageExists = await messageModel.findOne({athleteIDs: id, athleteIDs: userID});
+        if (!messageExists) return res.status(404).send("No messages sent/recieved to/from this athlete");
+        res.status(200).json({ msgHistory: messageExists });
     } catch(error) {
         res.status(500).json(error.message);
     };
@@ -296,5 +320,6 @@ module.exports = {
     follow_Unfollow,
     deleteAthlete,
     athleteFeed,
-    sendMessage
-}
+    sendMessage,
+    viewMessages
+};
