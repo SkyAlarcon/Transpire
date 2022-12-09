@@ -77,10 +77,8 @@ A Transpire :transgender_symbol: conta com funcionalidades:
 * :pushpin: Busca de atletas por ID
 * :pushpin: Seguir outre atleta
 * :pushpin: Ver o feed de atleta
+* :pushpin: Enviar mensagens privadas para outre a atleta
 * :pushpin: Apagar perfil de atleta
-
-Em desenvolvimento para atletas:
-- [ ] Enviar mensagem entre atletas
 
 ### :medal_sports: Para times :medal_sports:
 * :pushpin: Criação de times
