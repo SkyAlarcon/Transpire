@@ -14,8 +14,8 @@ Pessoas cis aliadas também são bem-vindas a participar e integrar nossa comuni
 - [Por que foi criada a Transpire :transgender_symbol:?](https://github.com/SkyAlarcon/Transpire#por-que-foi-criada-a-transpire-transgender_symbol)
 - [Como alcançaremos nosso objetivo](https://github.com/SkyAlarcon/Transpire#como-alcan%C3%A7aremos-nosso-objetivo)
 - [Como funciona](https://github.com/SkyAlarcon/Transpire#como-funciona)
-- [Tecnoligias utilizadas](https://github.com/SkyAlarcon/Transpire#tecnologias-utilizadas)
-- [Conheça a desenvoledora](https://github.com/SkyAlarcon/Transpire#conhe%C3%A7a-a-desenvolvedora)
+- [Tecnologias utilizadas](https://github.com/SkyAlarcon/Transpire#tecnologias-utilizadas)
+- [Conheça a desenvolvedora](https://github.com/SkyAlarcon/Transpire#conhe%C3%A7a-a-desenvolvedora)
 - [Notas de Atualização (EN-US)](https://github.com/SkyAlarcon/Transpire/blob/main/Patch-Note.md)
 - [Descrição dos métodos usados (EN-US)](https://github.com/SkyAlarcon/Transpire/blob/main/Methods.md)
 
@@ -49,7 +49,7 @@ pois é necessário saber que eles existem que depende, tanto da
 divulgação externa do grupo ou atleta para a internet, quanto da 
 pessoa interessada em pesquisar a informação com as palavras-chave corretas na plataforma (instagram, tiktok, facebook, etc) correta.
 
-Com essas dificuldades em mente, surgiu a ideia da Transpire :trangender_symbol:.
+Com essas dificuldades em mente, surgiu a ideia da Transpire :transgender_symbol:.
 
 
 ## Como alcançaremos nosso objetivo
@@ -112,7 +112,7 @@ Em desenvolvimento para atletas:
 
 
 ## Conheça a desenvolvedora
-A desenvolvedora Sky Alarcon é uma mulher trans, professora de matemática desde os 16 anos e amante de esportes. Aluna do curso **Todas em Tech** da *REPROGRAMA* e estudante de Matemática na Universidade de São Paulo sempre teve interesse em aprofundar seu conhecimento lógico na programação.
+A desenvolvedora Sky Alarcon é uma mulher trans, professora de matemática desde os 16 anos e amante de esportes. Aluna do curso **Todas em Tech** da **{REPROGRAMA}** e estudante de Matemática na Universidade de São Paulo sempre teve interesse em aprofundar seu conhecimento lógico na programação.
 
 ## Entre em contato via:
 - [Linkedin](linkedin.com/in/skyalarcon/)

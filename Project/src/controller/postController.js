@@ -40,6 +40,23 @@ const newPost = async (req,res) => {
     };
 };
 
+const updatePost = async (req,res) => {
+    try {
+        const authHeader = req.get("Authorization");
+        const BlockAccess = script.TokenVerifier(authHeader);
+        if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
+        const { id } = req.params;
+        const postExists = await postModel.findById(id);
+        if (!postExists) return res.status(404).send("No post found to update");
+        const { opID, msg } = req.body;
+        if (opID != postExists.athleteOpID) return res.status(403).send("Only the original poster can edit the post");
+        await postModel.findByIdAndUpdate(id, {message: msg});
+        res.status(200).json({ msg: "Post updated successfully" });
+    } catch(error) {
+        res.status(500).json(error.message);
+    };
+}; //TO BE TESTED
+
 const deletePost = async (req,res) => {
     try {
         const authHeader = req.get("Authorization");
@@ -82,5 +99,6 @@ const deletePost = async (req,res) => {
 
 module.exports = {
     newPost,
+    updatePost,
     deletePost
 }

@@ -165,6 +165,7 @@
 ## Version 0.5.1 - Implemented posts to teams feed
 - teamController.js
   - Implemented team feed
+  - Refactored Add/Remove ADM from teams
 
 
 - athleteController.js
