@@ -247,16 +247,6 @@ const teamFeed = async (req,res) => {
     };
 };
 
-const functionModel = async (req,res) => {
-    try {
-        const authHeader = req.get("Authorization");
-        const BlockAccess = script.TokenVerifier(authHeader);
-        if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
-    } catch(error) {
-        res.status(500).json(error.message);
-    };
-};
-
 module.exports = {
     createTeam,
     allTeams,

@@ -227,11 +227,9 @@ const deleteAthlete = async (req, res) => {
 
         athleteExists.inbox.forEach(async msgID => {
             const msgExists = await messageModel.findById(msgID, "athleteIDs");
-            if (msgExists.athleteIDs.length < 2) await messageModel.findByIdAndDelete(msgID);
-            if (msgExists.athleteIDs.length == 2){
-                msgExists.athleteIDs = script.RemoveIdByIndex(id, msgExists.athleteIDs);
-                await messageModel.findByIdAndUpdate(msgID, {athleteIDs: msgExists.athleteIDs});
-            };
+            const athleteIdToVerify = script.RemoveIdByIndex(id, msgExists.athleteIDs);
+            const athleteExists = await athleteModel.findById(athleteIdToVerify[0])
+            if (!athleteExists) await messageModel.findByIdAndDelete(msgID);
         });
 
         const deletedAthlete = await athleteModel.findByIdAndDelete(id);
@@ -239,7 +237,7 @@ const deleteAthlete = async (req, res) => {
     } catch (error) {
         res.status(500).json(error.message);
     };
-}; //TO BE TESTED
+};
 
 const athleteFeed = async (req,res) => {
     try {
