@@ -47,7 +47,7 @@
 ## deleteAthlete
 - Delete Athlete's account
   - Remove athlete's ID from teams
-  - Remove athlete's ID from "following" data from other athletes
+  - Remove athlete's ID from "following" and "followers" lists from other athletes 
 
 # TEAMS
 ## createTeam

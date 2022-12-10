@@ -7,8 +7,8 @@ route.post("/new", controller.createTeam);
 
 route.get("/all", controller.allTeams);
 route.get("/find/:id", controller.findTeamById);
-route.get("/", controller.findTeamByQuery);
 route.get("/feed/:id", controller.teamFeed);
+route.get("/", controller.findTeamByQuery);
 
 route.patch("/update/:id", controller.updateTeam);
 route.patch("/admin/:id", controller.addRemoveAdministrator);

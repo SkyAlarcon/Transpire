@@ -3,6 +3,7 @@ const express = require("express");
 
 const route = express.Router();
 
+route.get("/find/:id", controller.findPostById)
 
 route.post("/new/:id", controller.newPost);
 

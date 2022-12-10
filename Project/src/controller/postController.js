@@ -10,10 +10,10 @@ const newPost = async (req,res) => {
         const BlockAccess = script.TokenVerifier(authHeader);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
         const { id } = req.params;
-        const { opId, msg } = req.body;
+        const { opID, msg } = req.body;
         const teamExists = await teamModel.findById(id,["athletes", "posts"]);
         if (!teamExists) return res.status(404).json({ msg: "No team found to post" });
-        const athleteExists = await atlheteModel.findById(opId, ["teams", "teamPosts"]);
+        const athleteExists = await atlheteModel.findById(opID, ["teams", "teamPosts"]);
         if(!athleteExists) return res.status(404).json({ msg: "No athlete found" });
         let athleteJoinedTeam = false;
         for (let teamIdIndex = 0; teamIdIndex < athleteExists.teams.length; teamIdIndex++){
@@ -25,7 +25,7 @@ const newPost = async (req,res) => {
         if (!athleteJoinedTeam) return res.status(403).json({ msg: "You need to join the team before posting" });
         if (!msg) return res.status(400).json({ msg: "The post can't be empty" });
         const newPost = new postModel({
-            athleteOpID: opId,
+            athleteOpID: opID,
             teamID: id,
             message: msg
         });
@@ -33,8 +33,8 @@ const newPost = async (req,res) => {
         teamExists.posts.push(savedPost.id);
         await teamModel.findByIdAndUpdate(id, {posts: teamExists.posts});
         athleteExists.teamPosts.push(savedPost.id);
-        await atlheteModel.findByIdAndUpdate(opId, {teamPosts: athleteExists.teamPosts});
-        res.status(201).json({ msg: "New post created", savedPost});
+        await atlheteModel.findByIdAndUpdate(opID, {teamPosts: athleteExists.teamPosts});
+        res.status(201).json({ msg: "New post created", savedPost: savedPost});
     } catch(error) {
         res.status(500).json(error.message);
     };
@@ -55,7 +55,21 @@ const updatePost = async (req,res) => {
     } catch(error) {
         res.status(500).json(error.message);
     };
-}; //TO BE TESTED
+};
+
+const findPostById = async (req, res) => {
+    try {
+        const authHeader = req.get("Authorization");
+        const BlockAccess = script.TokenVerifier(authHeader);
+        if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
+        const { id } = req.params;
+        const postExists = await postModel.findById(id);
+        if (!postExists) return res.status(404).send("No post found");
+        res.status(200).json({ postExists });
+    } catch(error) {
+        res.status(500).json(error.message);
+    };
+};
 
 const deletePost = async (req,res) => {
     try {
@@ -78,13 +92,13 @@ const deletePost = async (req,res) => {
             await postModel.findByIdAndDelete(id);
             return res.status(200).send("Deleted post successfully");
         };
-        if (teamID){
+        if (admID && teamID){
             const teamExists = await teamModel.findById(teamID, ["adm", "posts"]);
             if (!teamExists) return res.status(404).send("No team found")
             if (!teamExists.adm.toString().includes(admID)) return res.status(403).send("Only administrators or the original poster can delete a post");
             if (teamID != postExists.teamID) return res.status(403).send("Can only delete posts on teams you administrate");
-            teamExists.post = script.RemoveIdByIndex(id, teamExists.posts);
-            await teamModel.findByIdAndUpdate(id, {posts: team.posts});
+            teamExists.posts = script.RemoveIdByIndex(id, teamExists.posts);
+            await teamModel.findByIdAndUpdate(id, {posts: teamExists.posts});
             const athleteOP = await atlheteModel.findById(postExists.athleteOpID, "teamPosts");
             athleteOP.teamPosts = script.RemoveIdByIndex(id, athleteOP.teamPosts);
             await atlheteModel.findByIdAndUpdate(postExists.athleteOpID, {teamPosts: athleteOP.teamPosts});
@@ -100,5 +114,6 @@ const deletePost = async (req,res) => {
 module.exports = {
     newPost,
     updatePost,
-    deletePost
+    deletePost,
+    findPostById
 }

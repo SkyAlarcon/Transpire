@@ -167,7 +167,6 @@
   - Implemented team feed
   - Refactored Add/Remove ADM from teams
 
-
 - athleteController.js
   - Implemented athlete feed
 
@@ -181,5 +180,18 @@
     - View message
     - Send message
   - Refactored delete athlete
+
+## Version 0.6.2 - Tests coding for final release
+- API-stress.test.js
+  - New tests
+
+- athleteController.js
+  - Refactored code
+
+- teamController.js
+  - Refactored code
+
+- postController.js
+  - Created findPostById
 
 - [Go back to README](https://github.com/SkyAlarcon/Transpire#readme)

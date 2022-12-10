@@ -47,7 +47,7 @@ const login = async (req, res) => {
         const isPasswordValid = bcrypt.compareSync(password, athleteExists.password);
         if (!isPasswordValid) return res.status(401).json({ msg: "Username or password incorrect" });
         const token = jwt.sign({ username: username }, SECRET);
-        return res.status(200).send({ token });
+        return res.status(200).json({ token: token });
     } catch (error) {
         res.status(500).json(error.message);
     };
@@ -202,36 +202,32 @@ const deleteAthlete = async (req, res) => {
         const { id } = req.params;
         const athleteExists = await athleteModel.findById(id, ['teams', 'followers', 'following', 'inbox']);
         if (!athleteExists) return res.status(404).send("No athlete found");
-        const teamOnylOwner = []
-        athleteExists.teams.forEach(async teamID => {
-            const team = await teamModel.findById(teamID, ["name", "adm"]);
-            if (team.adm.length == 1 && team.adm[0] == id) teamOnylOwner.push[team.name];
-        });
-        if (teamOnylOwner.length > 0) return res.status(400).json({ msg: "Please add another administrator or delete the following teams to proceed:", teamOnylOwner });
-        athleteExists.teams.forEach(async teamID => {
+        await athleteExists.teams.forEach(async teamID => {
             const team = await teamModel.findById(teamID, ["adm", "athletes"]);
-            team.adm = script.RemoveIdByIndex(id, team.adm);
-            team.athletes = script.RemoveIdByIndex(id, team.athletes);
-            await teamModel.findByIdAndUpdate(teamID, { adm: team.adm, athletes: team.athletes });
+            if (team.athletes.length == 1) await teamModel.findByIdAndDelete(teamID);
+            if (team.athletes.length > 1){
+                team.adm = script.RemoveIdByIndex(id, team.adm);
+                team.athletes = script.RemoveIdByIndex(id, team.athletes);
+                if (team.adm.length == 0) team.adm = team.athletes[0];
+                await teamModel.findByIdAndUpdate(teamID, { adm: team.adm, athletes: team.athletes });
+            };
         });
-        athleteExists.followers.forEach(async followerID => {
+        await athleteExists.followers.forEach(async followerID => {
             const follower = await athleteModel.findById(followerID, ["following"]);
             follower.following = script.RemoveIdByIndex(id, follower.following);
             await athleteModel.findByIdAndUpdate(followerID, { following: follower.following });
         });
-        athleteExists.following.forEach(async followingID => {
+        await athleteExists.following.forEach(async followingID => {
             const following = await athleteModel.findById(followingID, ["followers"]);
             following.followers = script.RemoveIdByIndex(id, following.follower);
             await athleteModel.findByIdAndUpdate(followingID, { followers: following.followers });
         });
-
-        athleteExists.inbox.forEach(async msgID => {
+        await athleteExists.inbox.forEach(async msgID => {
             const msgExists = await messageModel.findById(msgID, "athleteIDs");
             const athleteIdToVerify = script.RemoveIdByIndex(id, msgExists.athleteIDs);
             const athleteExists = await athleteModel.findById(athleteIdToVerify[0])
             if (!athleteExists) await messageModel.findByIdAndDelete(msgID);
         });
-
         const deletedAthlete = await athleteModel.findByIdAndDelete(id);
         res.status(200).json({ msg: `Athlete ${deletedAthlete.username} deleted` });
     } catch (error) {
@@ -264,7 +260,7 @@ const sendMessage = async (req,res) => {
         const { senderID, msg } = req.body;
         const senderExists = await athleteModel.findById(senderID, ["username", "inbox"]);
         if (!senderExists) return res.status(404).send("No sender found");
-        const messageExists = await messageModel.findOne({athleteID: id, athleteID: senderID});
+        const messageExists = await messageModel.findOne({athleteIDs: [id, senderID]});
         const trimmedMsg = msg.trim();
         const newDM = `Sender: ${senderExists.username}\n`+ trimmedMsg;
         if (!messageExists) {
@@ -280,7 +276,6 @@ const sendMessage = async (req,res) => {
         };
         if (messageExists) {
             messageExists.messages.push(newDM);
-            console.log(messageExists.messages)
             await messageModel.findByIdAndUpdate(messageExists.id, {messages: messageExists.messages});
         };
         res.status(200).json({ msg: `Message sent to ${recieverExists.username}`});
@@ -294,15 +289,15 @@ const viewMessages = async (req,res) => {
         const authHeader = req.get("Authorization");
         const BlockAccess = script.TokenVerifier(authHeader);
         if (BlockAccess) return res.status(401).send("Invalid header, please contact support");
-        const { id } = req.params;
-        const athlete1Exists = await athleteModel.findById(id);
-        if (!athlete1Exists) return res.status(404).send("No athlete found");
-        const { userID } = req.body;
-        const athlete2Exists = await athleteModel.findById(userID);
-        if (!athlete2Exists) return res.status(404).send("No athlete found");
-        const messageExists = await messageModel.findOne({athleteIDs: id, athleteIDs: userID});
+        const { recieverID } = req.params;
+        const athlete1Exists = await athleteModel.findById(recieverID);
+        if (!athlete1Exists) return res.status(404).send("No athlete (reciever) found");
+        const { senderID } = req.body;
+        const athlete2Exists = await athleteModel.findById(senderID);
+        if (!athlete2Exists) return res.status(404).send("No athlete (sender) found");
+        const messageExists = await messageModel.findOne({athleteIDs: [senderID, recieverID], athleteIDs: [recieverID, senderID]});
         if (!messageExists) return res.status(404).send("No messages sent/recieved to/from this athlete");
-        res.status(200).json({ msgHistory: messageExists });
+        res.status(200).json({ msgHistory: messageExists.messages });
     } catch(error) {
         res.status(500).json(error.message);
     };

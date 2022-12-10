@@ -25,7 +25,7 @@ const createTeam = async (req,res) => {
             sports,
             description,
             socials,
-            adm: adm,
+            adm: [adm],
             athletes: [adm],
             friendlyOrExclusive
         });
@@ -96,7 +96,6 @@ const addRemoveAdministrator = async (req,res) => {
         await teamModel.findByIdAndUpdate(id, {adm: teamExists.adm});
         res.status(200).json({ msg: msg });
     } catch(error) {
-        console.log(error.message)
         res.status(500).json(error.message);
     };
 };
@@ -177,12 +176,12 @@ const enter_LeaveTeam = async (req,res) => {
         const { athleteID } = req.body;
         const athleteExists = await atlheteModel.findById(athleteID, ["_id", "teams"])
         if (!athleteExists) return res.status(404).json ( { msg: "No athlete found" } )
-        let msg = "Could not enter nor leave the team";
+        let msg = "Can not enter more than 10 teams";
         let joinedTeam = false;
         athleteExists.teams.forEach(teamID => {
             if (teamID == id) joinedTeam = true;
         });
-        if (!joinedTeam){
+        if (!joinedTeam && athleteExists.teams.length < 10){
             teamExists.athletes.push(athleteID);
             await teamModel.findByIdAndUpdate(id, {athletes: teamExists.athletes});
             athleteExists.teams.push(id);
@@ -199,7 +198,7 @@ const enter_LeaveTeam = async (req,res) => {
             msg = "You left the team";
             return res.status(200).json({ msg: msg });
         };
-        res.status(400).json({msg:msg})        
+        res.status(400).json({msg:msg});  
     } catch(error) {
         res.status(500).json(error.message);
     };
