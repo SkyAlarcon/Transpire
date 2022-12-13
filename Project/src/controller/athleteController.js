@@ -292,7 +292,7 @@ const viewMessages = async (req,res) => {
         const { recieverID } = req.params;
         const athlete1Exists = await athleteModel.findById(recieverID);
         if (!athlete1Exists) return res.status(404).send("No athlete (reciever) found");
-        const { senderID } = req.body;
+        const { senderID } = req.query;
         const athlete2Exists = await athleteModel.findById(senderID);
         if (!athlete2Exists) return res.status(404).send("No athlete (sender) found");
         const messageExists = await messageModel.findOne({athleteIDs: [senderID, recieverID], athleteIDs: [recieverID, senderID]});

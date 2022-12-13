@@ -2246,7 +2246,7 @@ describe("send Private messages", () => {
 describe("View messages", () => {
     test("A4 view A1 chat", (done) => {
         request(app)
-        .get(`/athletes/message/${athleteID1}`)
+        .get(`/athletes/message/${athleteID1}?senderID=${athleteID4}`)
         .send({senderID: athleteID4})
         .set("Authorization", token)
         .expect(200)
