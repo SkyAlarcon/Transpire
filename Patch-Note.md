@@ -194,4 +194,14 @@
 - postController.js
   - Created findPostById
 
+## Version 0.6.3 - Code working as intended
+- README.md update
+- Methods.md update
+- Swagger.js update
+- athleteController.js
+  - removed necessity of req.body and added req.query for senderID
+
+## Version 0.6.4 - Final commits
+- QoL changes
+
 - [Go back to README](https://github.com/SkyAlarcon/Transpire#readme)
