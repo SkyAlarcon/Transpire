@@ -2681,17 +2681,3 @@ describe("Athlete cleanup", () => {
         });
     });
 });
-
-/*
-describe("Test Model", () => {
-    test("description", (done) => {
-        request(app)
-
-        .set("Authorization", token)
-        .end((err,res) => {
-            if (err) return done(err);
-            done();
-        });
-    });
-});
-*/
