@@ -27,4 +27,4 @@ const RemoveIdByIndex = (idToRemove, idList) => {
 module.exports = {
     TokenVerifier,
     RemoveIdByIndex
-}
+};
