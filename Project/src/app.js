@@ -14,7 +14,7 @@ mongoDB.connect();
 
 app.get("/", (req, res) => {
     res.send({ message: `Boas-vindas à Transpire!\nO local para começar a se exercitar.\n\nToda e qualquer pessoa trans é bem-vinda a participar e compor nossa comunidade para que mais pessoas possam ter uma mudança no estilo de vida e se tornarem mais ativas fisicamente!`})
-})
+});
 
 app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
