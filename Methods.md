@@ -48,6 +48,16 @@
 - Delete Athlete's account
   - Remove athlete's ID from teams
   - Remove athlete's ID from "following" and "followers" lists from other athletes 
+  - Delete team if the athlete was the only participant
+
+## athleteFeed
+- View teams posts from athlete
+
+## sendMessage
+- Send a private message to athlete
+
+## viewMessages
+- View private messages exchanged between you and another athlete
 
 # TEAMS
 ## createTeam
@@ -76,8 +86,7 @@
 
 ## addRemoveAdministrator
 - Add/Remove Admin
-- Connection:
-  - If you going to add an admin they MUST be in team
+  - If you are going to add an admin, they MUST be in team
 
 ## findTeamById
 - Find an team via ID
@@ -108,11 +117,27 @@
 - Delete team
   - Remove the team from ALL athletes' teams list
 
+## teamFeed
+- View all posts posted in a team
+
+
+# POSTS
 ## newPost
 - Create a new post
   - Saves post's ID to athlete who posted
   - Saves post's ID to team's post
 
+## updatePost
+- Updates own post
+  - Must be the original poster to update
+
+## findPostById
+- Find post by ID
+
+## deletePost
+- Deletes post
+  - Must be the team admin where the post was originally posted or must be the original poster
+  - Remove post's ID from team's posts and from athlete's posts
 
 # End of developed methods
 
