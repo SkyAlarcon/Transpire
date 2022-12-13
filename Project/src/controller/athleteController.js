@@ -315,4 +315,4 @@ module.exports = {
     athleteFeed,
     sendMessage,
     viewMessages
-};
+}; 

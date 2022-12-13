@@ -257,4 +257,4 @@ module.exports = {
     removeAthleteFromTeam,
     enter_LeaveTeam,
     teamFeed
-}
+};
