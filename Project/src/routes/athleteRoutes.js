@@ -19,4 +19,4 @@ route.patch("/message/:id", controller.sendMessage);
 route.delete("/delete/:id", controller.deleteAthlete);
 
 
-module.exports = route
+module.exports = route;
