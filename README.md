@@ -88,11 +88,14 @@ A Transpire :transgender_symbol: conta com funcionalidades:
 
 
 ## Conheça a desenvolvedora
-A desenvolvedora Sky Alarcon é uma mulher trans, professora de matemática desde os 16 anos e amante de esportes. Aluna do curso **Todas em Tech** da **{REPROGRAMA}** e estudante de Matemática na Universidade de São Paulo sempre teve interesse em aprofundar seu conhecimento lógico na programação.
+A desenvolvedora Sky Alarcon é uma mulher trans, professora de matemática desde os 16 anos e amante de esportes. Professora do curso **Todas em Tech** da **{REPROGRAMA}** e estudante Análise e Desenvolvimento de Sistemas, sempre teve interesse em aprofundar seu conhecimento lógico na programação.
 
 ## Entre em contato via:
 - [Linkedin](linkedin.com/in/skyalarcon/)
 - [Instagram](https://www.instagram.com/_skydoceu/?hl=pt-br)
 - [Github](https://github.com/SkyAlarcon)
+
+
+### A API não está mais disponível para possiblitar novos projetos serem desenvolvidos
 
 [Voltar para o índice](https://github.com/SkyAlarcon/Transpire#%C3%ADndice)
